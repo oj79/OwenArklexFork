@@ -45,7 +45,7 @@ def init_worker(args: argparse.Namespace) -> None:
     config: Dict[str, Any] = json.load(open(args.config))
     workers: List[Dict[str, Any]] = config["workers"]
     worker_names: Set[str] = set([worker["name"] for worker in workers])
-    if "FaissRAGWorker" in worker_names:
+    if "FaissRAGWorker" in worker_names or "CompanyRAGWorker" in worker_names:
         logger.info("Initializing FaissRAGWorker...")
         build_rag(args.output_dir, config["rag_docs"])
 
