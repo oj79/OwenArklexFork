@@ -7,6 +7,9 @@ from arklex.evaluation.chatgpt_utils import chatgpt_chatbot
 from arklex.env.env import Env
 from arklex.orchestrator.NLU.nlu import SlotFilling
 from arklex.env.tools.tools import Tool
+from arklex.utils.utils import truncate_string
+
+MAX_DOC_SNIPPET: int = 2000
 
 ATTR_TO_PROFILE: str = "Convert the following list user attributes in to a text description of a customer profile for the following company:\n{company_summary}\nThe user attributes are here:\n{user_attr}"
 ADAPT_GOAL: str = "Assume you are planning to speak to a chatbot with the following goal in mind:\n{goal}\nUsing the company information below, re-write this goal into one that is more specific to the company and align with your profile. The new goal should be more specific either relevent to your profile or the company's details. Here is a summary of the company:\n{company_summary}\n{doc}\n{user_profile}"
@@ -47,9 +50,12 @@ def build_profile(
                 strategy=strategy,
                 client=config["client"],
             )
+            doc_content: str = random.choice(documents)["content"] if documents else ""
+            doc_snippet: str = truncate_string(doc_content, MAX_DOC_SNIPPET)
             doc: str = (
                 "Here is a page from the company website: "
-                + random.choice(documents)["content"]
+                # + random.choice(documents)["content"]
+                + doc_snippet
                 if documents
                 else ""
             )
@@ -110,9 +116,12 @@ def build_profile(
                 strategy=strategy,
                 client=config["client"],
             )
+            doc_content: str = random.choice(documents)["content"] if documents else ""
+            doc_snippet: str = truncate_string(doc_content, MAX_DOC_SNIPPET)
             doc: str = (
                 "Here is a page from the company website: "
-                + random.choice(documents)["content"]
+                # + random.choice(documents)["content"]
+                + doc_snippet
                 if documents
                 else ""
             )
@@ -686,6 +695,8 @@ def augment_attributes(
             new_attrs[category] = attributes[category]["values"]
         else:
             if documents:
+                doc_content: str = random.choice(documents).get("content", "")
+                doc_snippet: str = truncate_string(doc_content, MAX_DOC_SNIPPET)
                 attrs = chatgpt_chatbot(
                     [
                         {
@@ -694,7 +705,8 @@ def augment_attributes(
                                 user_profile=text_attribute,
                                 category=category,
                                 company_summary=config["intro"],
-                                company_doc=random.choice(documents),
+                                # company_doc=random.choice(documents),
+                                company_doc=doc_snippet,
                             ),
                         }
                     ],
@@ -828,9 +840,12 @@ def build_labelled_profile(
         )
 
         # Adapt goal
+        doc_content: str = random.choice(documents)["content"] if documents else ""
+        doc_snippet: str = truncate_string(doc_content, MAX_DOC_SNIPPET)
         doc: str = (
             "Here is a page from the company website: "
-            + random.choice(documents)["content"]
+            # + random.choice(documents)["content"]
+            + doc_snippet
             if documents
             else ""
         )
@@ -895,9 +910,12 @@ def build_labelled_profile(
 #     for category, values in predefined_attributes.items():
 #         augmented_attributes[category] = values["values"]
 #         if "augment" in values and values["augment"]:
+#             doc_content: str = random.choice(documents)["content"] if documents else ""
+#             doc_snippet: str = truncate_string(doc_content, MAX_DOC_SNIPPET)
 #             doc: str = (
 #                 "Here is a page from the company website: "
 #                 + random.choice(documents)["content"]
+#                 + doc_snippet
 #                 if documents
 #                 else ""
 #             )
