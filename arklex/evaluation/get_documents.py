@@ -24,14 +24,23 @@ def load_docs(
 ) -> List[Dict[str, str]]:
     if document_dir is not None:
         try:
-            if "rag_docs" not in doc_config:
-                if "task_docs" not in doc_config:
-                    raise ValueError(
-                        "The config json file must have a key 'rag_docs' or 'task_docs' with a list of documents to load."
-                    )
+            # if "rag_docs" not in doc_config:
+            #     if "task_docs" not in doc_config:
+            #         raise ValueError(
+            #             "The config json file must have a key 'rag_docs' or 'task_docs' with a list of documents to load."
+            #         )
+            if "rag_docs" in doc_config:
+                rag_docs: List[Dict[str, Any]] = doc_config["rag_docs"]
+                filename: str = "documents.pkl"
+            elif "task_docs" in doc_config:
+                rag_docs = doc_config["task_docs"]
+                filename = "task_documents.pkl"
             else:
-                rag_docs: List[Dict[str, Any]] = doc_config["task_docs"]
-                filename: str = "task_documents.pkl"
+                # rag_docs: List[Dict[str, Any]] = doc_config["task_docs"]
+                # filename: str = "task_documents.pkl"
+                raise ValueError(
+                    "The config json file must have a key 'rag_docs' or 'task_docs' with a list of documents to load."
+                )
             filepath: str = os.path.join(document_dir, filename)
             total_num_docs: int = sum(
                 [doc.get("num") if doc.get("num") else 1 for doc in rag_docs]
