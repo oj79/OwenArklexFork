@@ -875,68 +875,68 @@ def build_labelled_profile(
 #     return predefined_attributes
 
 
-def augment_attributes(
-    predefined_attributes: Dict[str, Dict[str, Any]],
-    config: Dict[str, Any],
-    documents: List[Dict[str, str]],
-) -> Dict[str, List[str]]:
-    """
-    Augment attributes with additional values.
-
-    Args:
-        predefined_attributes (dict): The predefined attributes.
-        config (dict): The configuration.
-        doc (str): The company document.
-
-    Returns:
-        dict: The augmented attributes.
-    """
-    augmented_attributes: Dict[str, List[str]] = {}
-    for category, values in predefined_attributes.items():
-        augmented_attributes[category] = values["values"]
-        if "augment" in values and values["augment"]:
-            doc: str = (
-                "Here is a page from the company website: "
-                + random.choice(documents)["content"]
-                if documents
-                else ""
-            )
-            prompt: str = ADD_ATTRIBUTES.format(
-                user_profile="; ".join(
-                    f"{key}: {value}" for key, value in predefined_attributes.items()
-                ),
-                category=category,
-                company_summary=config["company_summary"],
-                company_doc=doc,
-            )
-            response: str = chatgpt_chatbot(prompt, config["client"])
-            new_values: List[str] = [value.strip() for value in response.split(",")]
-            augmented_attributes[category].extend(new_values)
-    return augmented_attributes
-
-
-def get_custom_profiles(
-    config: Dict[str, Any],
-) -> Tuple[Dict[str, List[str]], Dict[str, List[str]]]:
-    """
-    Get custom profiles from the configuration.
-
-    Args:
-        config (dict): The configuration.
-
-    Returns:
-        tuple: A tuple containing the user profiles and system attributes.
-    """
-    user_profiles: Dict[str, List[str]] = {}
-    system_attributes: Dict[str, List[str]] = {}
-
-    for key, value in config["user_attributes"]["user_profiles"].items():
-        user_profiles[key] = value["values"]
-
-    for key, value in config["user_attributes"]["system_attributes"].items():
-        system_attributes[key] = value["values"]
-
-    return user_profiles, system_attributes
+# def augment_attributes(
+#     predefined_attributes: Dict[str, Dict[str, Any]],
+#     config: Dict[str, Any],
+#     documents: List[Dict[str, str]],
+# ) -> Dict[str, List[str]]:
+#     """
+#     Augment attributes with additional values.
+#
+#     Args:
+#         predefined_attributes (dict): The predefined attributes.
+#         config (dict): The configuration.
+#         doc (str): The company document.
+#
+#     Returns:
+#         dict: The augmented attributes.
+#     """
+#     augmented_attributes: Dict[str, List[str]] = {}
+#     for category, values in predefined_attributes.items():
+#         augmented_attributes[category] = values["values"]
+#         if "augment" in values and values["augment"]:
+#             doc: str = (
+#                 "Here is a page from the company website: "
+#                 + random.choice(documents)["content"]
+#                 if documents
+#                 else ""
+#             )
+#             prompt: str = ADD_ATTRIBUTES.format(
+#                 user_profile="; ".join(
+#                     f"{key}: {value}" for key, value in predefined_attributes.items()
+#                 ),
+#                 category=category,
+#                 company_summary=config["company_summary"],
+#                 company_doc=doc,
+#             )
+#             response: str = chatgpt_chatbot(prompt, config["client"])
+#             new_values: List[str] = [value.strip() for value in response.split(",")]
+#             augmented_attributes[category].extend(new_values)
+#     return augmented_attributes
+#
+#
+# def get_custom_profiles(
+#     config: Dict[str, Any],
+# ) -> Tuple[Dict[str, List[str]], Dict[str, List[str]]]:
+#     """
+#     Get custom profiles from the configuration.
+#
+#     Args:
+#         config (dict): The configuration.
+#
+#     Returns:
+#         tuple: A tuple containing the user profiles and system attributes.
+#     """
+#     user_profiles: Dict[str, List[str]] = {}
+#     system_attributes: Dict[str, List[str]] = {}
+#
+#     for key, value in config["user_attributes"]["user_profiles"].items():
+#         user_profiles[key] = value["values"]
+#
+#     for key, value in config["user_attributes"]["system_attributes"].items():
+#         system_attributes[key] = value["values"]
+#
+#     return user_profiles, system_attributes
 
 
 # def select_system_attributes(
