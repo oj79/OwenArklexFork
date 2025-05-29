@@ -1,0 +1,9 @@
+[
+  {
+    "query": "Please compute and display for me how much the bottom line profitability has changed over the past 3 years for Apple and Blackstone.",
+    "relevant": [
+      "Company docs/Apple",
+      "Company docs/Blackstone"
+    ]
+  }
+]
