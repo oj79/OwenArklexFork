@@ -858,21 +858,21 @@ def build_labelled_profile(
     return profiles, goals, attributes_list, system_inputs, labels_list
 
 
-def filter_attributes(config: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
-    """
-    Filter attributes from the configuration.
-
-    Args:
-        config (dict): The configuration.
-
-    Returns:
-        dict: The filtered attributes.
-    """
-    predefined_attributes: Dict[str, Dict[str, Any]] = {}
-    for key, value in config["user_attributes"].items():
-        if key != "goal" and key != "system_attributes":
-            predefined_attributes[key] = value
-    return predefined_attributes
+# def filter_attributes(config: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
+#     """
+#     Filter attributes from the configuration.
+#
+#     Args:
+#         config (dict): The configuration.
+#
+#     Returns:
+#         dict: The filtered attributes.
+#     """
+#     predefined_attributes: Dict[str, Dict[str, Any]] = {}
+#     for key, value in config["user_attributes"].items():
+#         if key != "goal" and key != "system_attributes":
+#             predefined_attributes[key] = value
+#     return predefined_attributes
 
 
 def augment_attributes(
@@ -939,23 +939,23 @@ def get_custom_profiles(
     return user_profiles, system_attributes
 
 
-def select_system_attributes(
-    config: Dict[str, Any], synthetic_data_params: Dict[str, Any]
-) -> List[Dict[str, Any]]:
-    """
-    Select system attributes from the configuration.
-
-    Args:
-        config (dict): The configuration.
-        synthetic_data_params (dict): The synthetic data parameters.
-
-    Returns:
-        list: The selected system attributes.
-    """
-    system_attributes: List[Dict[str, Any]] = []
-    for i in range(synthetic_data_params["num_convos"]):
-        system_attribute: Dict[str, Any] = {}
-        for key, value in config["user_attributes"]["system_attributes"].items():
-            system_attribute[key] = random.choice(value["values"])
-        system_attributes.append(system_attribute)
-    return system_attributes
+# def select_system_attributes(
+#     config: Dict[str, Any], synthetic_data_params: Dict[str, Any]
+# ) -> List[Dict[str, Any]]:
+#     """
+#     Select system attributes from the configuration.
+#
+#     Args:
+#         config (dict): The configuration.
+#         synthetic_data_params (dict): The synthetic data parameters.
+#
+#     Returns:
+#         list: The selected system attributes.
+#     """
+#     system_attributes: List[Dict[str, Any]] = []
+#     for i in range(synthetic_data_params["num_convos"]):
+#         system_attribute: Dict[str, Any] = {}
+#         for key, value in config["user_attributes"]["system_attributes"].items():
+#             system_attribute[key] = random.choice(value["values"])
+#         system_attributes.append(system_attribute)
+#     return system_attributes
