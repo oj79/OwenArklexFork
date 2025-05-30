@@ -491,7 +491,10 @@ def adapt_goal(goal: str, config: Dict[str, Any], doc: str, user_profile: str) -
         doc=doc,
         user_profile=user_profile,
     )
-    adapted_goal: str = chatgpt_chatbot(prompt, config["client"])
+    # adapted_goal: str = chatgpt_chatbot(prompt, config["client"])
+    adapted_goal: str = chatgpt_chatbot(
+        [{"role": "user", "content": prompt}], config["client"]
+    )
     return adapted_goal
 
 
@@ -786,7 +789,10 @@ def convert_attributes_to_profile(
     prompt: str = ATTR_TO_PROFILE.format(
         company_summary=config["company_summary"], user_attr=user_attr
     )
-    profile: str = chatgpt_chatbot(prompt, config["client"])
+    # profile: str = chatgpt_chatbot(prompt, config["client"])
+    profile: str = chatgpt_chatbot(
+        [{"role": "user", "content": prompt}], config["client"]
+    )
     return profile
 
 
@@ -928,6 +934,9 @@ def build_labelled_profile(
 #                 company_doc=doc,
 #             )
 #             response: str = chatgpt_chatbot(prompt, config["client"])
+#             response: str = chatgpt_chatbot(
+#                 [{"role": "user", "content": prompt}], config["client"]
+#             )
 #             new_values: List[str] = [value.strip() for value in response.split(",")]
 #             augmented_attributes[category].extend(new_values)
 #     return augmented_attributes
