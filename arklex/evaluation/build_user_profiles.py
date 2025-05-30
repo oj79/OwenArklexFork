@@ -9,7 +9,7 @@ from arklex.orchestrator.NLU.nlu import SlotFilling
 from arklex.env.tools.tools import Tool
 from arklex.utils.utils import truncate_string
 
-MAX_DOC_SNIPPET: int = 2000
+MAX_DOC_SNIPPET: int = 1000
 
 ATTR_TO_PROFILE: str = "Convert the following list user attributes in to a text description of a customer profile for the following company:\n{company_summary}\nThe user attributes are here:\n{user_attr}"
 ADAPT_GOAL: str = "Assume you are planning to speak to a chatbot with the following goal in mind:\n{goal}\nUsing the company information below, re-write this goal into one that is more specific to the company and align with your profile. The new goal should be more specific either relevent to your profile or the company's details. Here is a summary of the company:\n{company_summary}\n{doc}\n{user_profile}"
