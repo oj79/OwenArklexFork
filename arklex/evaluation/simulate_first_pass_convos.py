@@ -242,7 +242,7 @@ def generate_conversations(
             "goal_completion": goal_completion,
         }
 
-    with ThreadPoolExecutor(max_workers=8) as executor:
+    with ThreadPoolExecutor(max_workers=6) as executor:
         futures = [
             executor.submit(worker, input_combo) for input_combo in input_combinations
         ]
