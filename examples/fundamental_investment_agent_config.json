@@ -3,7 +3,8 @@
     "user_objective": "The assistant helps analyze companies for medium-term stock investments using filings and market data.",
     "builder_objective": "",
     "domain": "finance",
-    "intro": "",
+    "intro": "This assistant provides medium-term stock investment analysis using company filings and market data.",
+    "company_summary": "The dataset includes 10-K filings from Apple, Blackstone, ConocoPhillips, Walmart, and Xponential Fitness detailing their financial performance in the past 4 to 5 years.",
     "task_docs": [],
     "rag_docs": [
         {"source": "Company docs/Apple", "type": "file"},
