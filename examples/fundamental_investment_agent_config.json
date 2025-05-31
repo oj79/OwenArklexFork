@@ -23,7 +23,7 @@
     "tools": [
         {
             "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-            "name": "get_daily_prices",
+            "name": "get_alpha_daily",
             "path": "market_data/alpha_vantage.py"
         },
         {
