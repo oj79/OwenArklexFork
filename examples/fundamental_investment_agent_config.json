@@ -20,5 +20,16 @@
         {"id": "26bb6634-3bee-417d-ad75-23269ac17bc3", "name": "MessageWorker", "path": "message_worker.py"},
         {"id": "9c15af81-04b3-443e-be04-a3522124b905", "name": "SearchWorker", "path": "search_worker.py"}
     ],
-    "tools": []
+    "tools": [
+        {
+            "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
+            "name": "get_daily_prices",
+            "path": "market_data/alpha_vantage.py"
+        },
+        {
+            "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
+            "name": "get_fred_series",
+            "path": "market_data/fred.py"
+        }
+    ]
 }
