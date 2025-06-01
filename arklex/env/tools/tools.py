@@ -162,8 +162,17 @@ class Tool:
                 **fixed_args,
                 **self.llm_config,
             }
+            # Pass only the parameters accepted by the tool function
+            sig = inspect.signature(self.func)
+            if any(p.kind == inspect.Parameter.VAR_KEYWORD for p in sig.parameters.values()):
+                filtered_kwargs = combined_kwargs
+            else:
+                filtered_kwargs = {
+                    k: v for k, v in combined_kwargs.items() if k in sig.parameters
+                }
+
             try:
-                response = self.func(**combined_kwargs)
+                response = self.func(**filtered_kwargs)
                 tool_success = True
             except ToolExecutionError as tee:
                 logger.error(traceback.format_exc())
