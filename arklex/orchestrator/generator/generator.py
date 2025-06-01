@@ -439,6 +439,7 @@ class Generator:
 
             if not resource_id:
                 logger.info("Error while retrieving resource id")
+            json_answer[i]["resource"] = resource_name
             json_answer[i]["resource_id"] = resource_id
         return json_answer
 
