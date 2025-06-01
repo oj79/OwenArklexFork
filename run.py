@@ -77,6 +77,7 @@ if __name__ == "__main__":
         tools=config.get("tools", []),
         workers=config.get("workers", []),
         slotsfillapi=config["slotfillapi"],
+        planner_enabled=True,
     )
 
     history: List[Dict[str, str]] = []
