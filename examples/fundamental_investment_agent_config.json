@@ -15,10 +15,36 @@
     ],
     "tasks": [],
     "workers": [
-        {"id": "9aa47724-0b77-4752-9528-cf4b06a46915", "name": "FaissRAGWorker", "path": "faiss_rag_worker.py"},
-        {"id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2", "name": "CompanyRAGWorker", "path": "company_rag_worker.py", "fixed_args": {"use_milvus": false}},
-        {"id": "26bb6634-3bee-417d-ad75-23269ac17bc3", "name": "MessageWorker", "path": "message_worker.py"},
-        {"id": "9c15af81-04b3-443e-be04-a3522124b905", "name": "SearchWorker", "path": "search_worker.py"}
+        {
+            "id": "9aa47724-0b77-4752-9528-cf4b06a46915",
+            "name": "FaissRAGWorker",
+            "path": "faiss_rag_worker.py"
+        },
+        {
+            "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+            "name": "CompanyRAGWorker",
+            "path": "company_rag_worker.py",
+            "fixed_args": {
+                "use_milvus": false,
+                "doc_paths": [
+                    "Company docs/Apple",
+                    "Company docs/Blackstone",
+                    "Company docs/ConocoPhillips",
+                    "Company docs/Walmart",
+                    "Company docs/Xponential Fitness"
+                ]
+            }
+        },
+        {
+            "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+            "name": "MessageWorker",
+            "path": "message_worker.py"
+        },
+        {
+            "id": "9c15af81-04b3-443e-be04-a3522124b905",
+            "name": "SearchWorker",
+            "path": "search_worker.py"
+        }
     ],
     "tools": [
         {
