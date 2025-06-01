@@ -52,9 +52,18 @@ def build_rag(folder_path: str, rag_docs: List[Dict[str, Any]]) -> None:
                     else:
                         docs.extend(loader.to_crawled_local_objs([source]))
                 elif os.path.isdir(source):
-                    file_list: List[str] = [
-                        os.path.join(source, f) for f in os.listdir(source)
-                    ]
+                    # file_list: List[str] = [
+                    #     os.path.join(source, f) for f in os.listdir(source)
+                    # ]
+
+                    # Recursively collect all files under the directory. This
+                    # allows users to specify a folder containing nested
+                    # subdirectories of filings (e.g. company 10‑Ks) and have
+                    # every document ingested.
+                    file_list: List[str] = []
+                    for root, _, files in os.walk(source):
+                        for file in files:
+                            file_list.append(os.path.join(root, file))
                     docs.extend(loader.to_crawled_local_objs(file_list))
                 else:
                     raise FileNotFoundError(
