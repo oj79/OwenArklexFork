@@ -492,6 +492,13 @@ class TaskGraph(TaskGraphBase):
                 }
             )
         params.taskgraph.curr_node = curr_node
+        # Fallback: if a CompanyRAGWorker exists in the task graph, jump to it
+        for node_id, node_data in self.graph.nodes(data=True):
+            resource = node_data.get("resource", {})
+            if resource.get("name") == "CompanyRAGWorker":
+                node_info, params = self._get_node(node_id, params)
+                return node_info, params
+
         node_info: NodeInfo = NodeInfo(
             node_id=None,
             type="",
