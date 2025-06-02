@@ -14,6 +14,7 @@ from arklex.env.tools.RAG.build_rag import build_rag
 from arklex.env.tools.database.build_database import build_database
 from arklex.utils.model_config import MODEL
 from arklex.utils.model_provider_config import LLM_PROVIDERS, PROVIDER_MAP
+from arklex.env.tools.story_memory.build_story_memory import build_story_memory
 
 logger = init_logger(
     log_level=logging.INFO,
@@ -49,7 +50,11 @@ def init_worker(args: argparse.Namespace) -> None:
         logger.info("Initializing FaissRAGWorker...")
         build_rag(args.output_dir, config["rag_docs"])
 
-    elif any(
+    if "StoryMemoryWorker" in worker_names:
+        logger.info("Initializing StoryMemoryWorker...")
+        build_story_memory(args.output_dir)
+
+    if any(
         node in worker_names
         for node in (
             "DataBaseWorker",
