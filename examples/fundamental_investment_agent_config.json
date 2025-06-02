@@ -44,6 +44,12 @@
             "id": "9c15af81-04b3-443e-be04-a3522124b905",
             "name": "SearchWorker",
             "path": "search_worker.py"
+        },
+        {
+            "id": "c50dbfab-501f-4c86-9c21-9a0cf579725b",
+            "name": "StoryMemoryWorker",
+            "path": "story_memory_worker.py",
+            "fixed_args": {"db_path": "stories.sqlite"}
         }
     ],
     "tools": [
