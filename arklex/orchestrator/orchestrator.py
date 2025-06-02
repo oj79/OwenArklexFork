@@ -29,6 +29,7 @@ from arklex.utils.graph_state import (
 from arklex.utils.utils import format_chat_history
 from arklex.utils.model_config import MODEL
 from arklex.memory import ShortTermMemory
+from arklex.env.workers.story_memory_worker import StoryMemoryWorker
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -63,6 +64,12 @@ class AgentOrg:
 
         # Update planner model info now that LLMConfig is defined
         self.env.planner.set_llm_config_and_build_resource_library(self.llm_config)
+
+        self.story_memory_worker: Optional[StoryMemoryWorker] = None
+        for spec in self.env.workers.values():
+            if spec["name"] == "StoryMemoryWorker":
+                self.story_memory_worker = spec["execute"]()
+                break
 
     def init_params(
         self, inputs: Dict[str, Any]
@@ -282,6 +289,12 @@ class AgentOrg:
 
         found_records, relevant_records = stm.retrieve_records(text)
 
+        if self.story_memory_worker:
+            story_records = self.story_memory_worker.retrieve_stories(text)
+            if story_records:
+                found_records = True
+                relevant_records.extend(story_records)
+
         logger.info(f"Found Records: {found_records}")
         if found_records:
             logger.info(
@@ -376,6 +389,12 @@ class AgentOrg:
                 message_state = ToolGenerator.context_generate(message_state)
             else:
                 message_state = ToolGenerator.stream_context_generate(message_state)
+
+        if self.story_memory_worker:
+            try:
+                self.story_memory_worker.add_story(message_state)
+            except Exception as err:
+                logger.error(f"StoryMemoryWorker add_story failed: {err}")
 
         return OrchestratorResp(
             answer=message_state.response,
