@@ -1,82 +1,66 @@
 [
     {
-        "task_name": "Provide financial analysis based on company filings",
+        "task_name": "Provide analysis on company financial statements",
         "steps": [
-            "Retrieve recent financial filings of the company using retrieve_company_filings to gather necessary data for analysis.",
-            "Perform financial ratio analysis using perform_financial_ratio_analysis to assess the company\u2019s performance and provide insights.",
-            "Compare the target company with its industry peers using compare_industry_peers to understand its standing within the industry.",
-            "Assess investment risks utilizing assess_investment_risk by analyzing potential risks based on both qualitative and quantitative data.",
-            "Provide a summary of findings from the analyses and ask if the user needs more detailed information or additional analyses.",
-            "Deliver additional insights or perform further tasks like tracking historical stock performance or monitoring market trends if requested by the user."
+            "Inquire about the specific company or companies the user is interested in analyzing for investments.",
+            "Gather necessary filings and market data related to the specified company/companies using the data_collection_and_retrieval resource.",
+            "Provide an overview of the company's financial health and performance through financial_statement_analysis using CompanyRAGWorker.",
+            "Analyze current market trends that may impact the company's stock performance using market_trend_analysis.",
+            "Determine the stock's intrinsic value using stock_valuation to identify whether it's undervalued or overvalued.",
+            "Assess potential risks associated with investing in the company's stock using investment_risk_assessment.",
+            "Summarize the analysis and provide tailored investment suggestions to the user.",
+            "Ask if the user has further questions or needs additional analysis on another company or financial aspect."
         ]
     },
     {
-        "task_name": "Provide comparison of companies within the same industry",
+        "task_name": "Provide insights on current market trends affecting investments",
         "steps": [
-            "Inquire about the industry and specific companies the user is interested in comparing.",
-            "Retrieve recent financial filings for the identified companies using retrieve_company_filings.",
-            "Perform financial ratio analysis for each company using perform_financial_ratio_analysis.",
-            "Track historical stock performance for each company using track_historical_stock_performance.",
-            "Monitor current market trends that could impact the companies using monitor_market_trends.",
-            "Compare key financial metrics with industry peers using compare_industry_peers.",
-            "Present the comparison to the user and ask if they need more detailed information or further analysis."
+            "Use the MessageWorker to greet the user and ask if they are looking for insights on current market trends affecting investments.",
+            "Use the SearchWorker to gather real-time information about current market trends potentially affecting investments.",
+            "Utilize the market_trend_analysis subtask to analyze the collected data and identify significant trends impacting the investment landscape.",
+            "Employ the CompanyRAGWorker to provide context or historical information from company filings and documents to support or contrast the current market trends.",
+            "Combine insights from FaissRAGWorker and market_data-fred-get_fred_series to provide specific data-driven insights related to the current trends.",
+            "Use the StoryMemoryWorker to store the conversation for future reference and continuity.",
+            "Deliver the insights to the user through the MessageWorker, highlighting the key market trends and their potential implications on investments.",
+            "Ask the user if they have any specific questions or need further analysis on particular market trends or investment opportunities."
         ]
     },
     {
-        "task_name": "Provide risk assessment for potential investments",
+        "task_name": "Assist in stock valuation using financial ratios and metrics",
         "steps": [
-            "Ask the user for the name of the company or companies for which they want a risk assessment.",
-            "Retrieve recent financial filings of the company using `retrieve_company_filings` and perform an initial analysis.",
-            "Use `perform_financial_ratio_analysis` to calculate key financial ratios and assess the company's performance against industry benchmarks.",
-            "Utilize `compare_industry_peers` to evaluate the company's financial metrics relative to its industry peers.",
-            "Employ `assess_investment_risk` to examine potential risks associated with investing in the company, considering both qualitative and quantitative data.",
-            "Ask if the user wants additional information on market trends or any specific risk factors.",
-            "Use `monitor_market_trends` to provide insights into current market trends and their potential impact on the company\u2019s stock performance, if requested by the user.",
-            "Deliver a summarized risk assessment to the user and ask if they need further analysis or details."
+            "Initiate the conversation and ask the user which company they are interested in for stock valuation.",
+            "Fetch relevant company filings and market data using data_collection_and_retrieval resources.",
+            "Analyze the financial statements of the company using financial_statement_analysis subtask to assess its financial health.",
+            "Evaluate the current market trends connected to the company with market_trend_analysis subtask.",
+            "Perform stock valuation using financial ratios and valuation methods with stock_valuation subtask to determine intrinsic value.",
+            "Discuss potential investment risks using investment_risk_assessment subtask to provide a comprehensive view of risk.",
+            "Summarize the findings and provide a final recommendation or answer any further questions the user may have."
         ]
     },
     {
-        "task_name": "Provide analysis on current market trends influencing stocks",
+        "task_name": "Provide risk assessment for potential stock investments",
         "steps": [
-            "Inquire the user about specific stocks or sectors they are interested in understanding current market trends.",
-            "Use SearchWorker to gather real-time online search results about current market trends and its potential impact on stocks.",
-            "Fetch daily time series data from Alpha Vantage to get current stock performance updates using market_data-alpha_vantage-get_alpha_daily.",
-            "Use market_data-fred-get_fred_series to gather relevant economic data that might influence market trends.",
-            "Analyze the gathered data to provide insights into how current market trends are influencing stock performance.",
-            "Present the analysis to the user, highlighting key trends and their potential implications.",
-            "Ask if the user wants a more detailed analysis or insights into specific areas such as risk assessment or peer comparison.",
-            "Based on the user's response, offer additional insights or recommendations, such as comparing industry peers or assessing investment risks."
+            "Ask the user for the company or stock they are interested in and any specific concerns they may have regarding investment risks.",
+            "Use CompanyRAGWorker to gather insights from company filings and documents specific to the company or stock provided by the user.",
+            "Fetch and analyze daily time series data using market_data-alpha_vantage-get_alpha_daily and relevant economic indicators using market_data-fred-get_fred_series to evaluate market conditions.",
+            "Conduct financial statement analysis to assess the financial health and performance of the company using financial_statement_analysis.",
+            "Perform investment risk assessment focusing on potential risks identified from the data and analysis conducted in the previous steps using investment_risk_assessment.",
+            "Provide a comprehensive risk assessment report to the user addressing their specific concerns, utilizing MessageWorker for delivery.",
+            "Ask if the user needs any further explanation or additional information regarding other potential investments."
         ]
     },
     {
-        "task_name": "Provide insights into company management and leadership",
+        "task_name": "Offer comparisons between multiple stocks based on key criteria",
         "steps": [
-            "Ask the user about the specific company or companies they are interested in for medium-term stock investment.",
-            "Use CompanyRAGWorker to gather information from recent company filings and documents about the company's management and leadership.",
-            "Use MessageWorker to present the gathered insights to the user, highlighting key aspects of the management team's experience and strategic decisions.",
-            "Inquire if the user needs further analysis or specific details regarding the company's management or leadership decisions.",
-            "If the user requests additional information, use SearchWorker to find recent news articles or reports about the company\u2019s leadership and management performance.",
-            "Provide final insights and recommendations to the user based on collected data, and offer further assistance with any additional investment-related queries."
-        ]
-    },
-    {
-        "task_name": "Provide historical performance data of stocks",
-        "steps": [
-            "Inquire which specific company's historical stock performance data the user wants to review.",
-            "Use the track_historical_stock_performance function to retrieve the historical stock performance data for the specified company.",
-            "Deliver the historical performance data to the user with a summary using the MessageWorker.",
-            "Ask the user if they require analysis on the trends observed in the historical performance data.",
-            "Provide insights or further assistance based on the user's response, possibly involving other functions like assess_investment_risk or monitor_market_trends if needed."
-        ]
-    },
-    {
-        "task_name": "Set up alerts for significant stock price movements",
-        "steps": [
-            "Ask the user to specify which company's stock they are interested in monitoring for significant price movements.",
-            "Clarify what percentage change or specific conditions should trigger the alert for the user.",
-            "Utilize the market_data-alpha_vantage-get_alpha_daily to fetch daily time series data for the specified company stock.",
-            "Set up the stock price alerts according to the specified conditions using set_stock_price_alerts.",
-            "Confirm with the user that the alerts have been set up and ask if they need alerts for any other stocks or need further assistance."
+            "Initiate the conversation with the user and inquire about the specific stocks or criteria they are interested in comparing.",
+            "Retrieve relevant financial filings and documents using CompanyRAGWorker for the specified stocks.",
+            "Fetch real-time market data for the specified stocks using market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series services.",
+            "Perform financial statement analysis on the retrieved data to assess each company's financial health.",
+            "Conduct a market trend analysis to understand the current trends that may impact the selected stocks.",
+            "Utilize stock valuation techniques to determine the intrinsic value of each stock and compare them based on valuation metrics.",
+            "Evaluate the potential investment risks associated with the stocks using investment risk assessment methods.",
+            "Present the analysis results and comparisons to the user, highlighting key differences and potential investment opportunities.",
+            "Ask the user if they need further clarification or if they have additional stocks or criteria for comparison."
         ]
     }
 ]
