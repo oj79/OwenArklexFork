@@ -31,7 +31,7 @@ class CompanyRAGWorker(FaissRAGWorker):
     def __init__(
         self,
         doc_paths: Optional[List[str]] = None,
-        data_dir: str = os.environ.get("DATA_DIR", "./company_rag"),
+        data_dir: str = os.environ.get("DATA_DIR", ""),
         stream_response: bool = True,
         use_milvus: bool = False,
     ) -> None:
