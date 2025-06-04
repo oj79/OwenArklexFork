@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
 
+from arklex.env.tools.portfolio.build_portfolio_db import build_portfolio_db
 from arklex.utils.utils import init_logger
 from arklex.orchestrator.generator.generator import Generator
 from arklex.env.tools.RAG.build_rag import build_rag
@@ -53,6 +54,10 @@ def init_worker(args: argparse.Namespace) -> None:
     if "StoryMemoryWorker" in worker_names:
         logger.info("Initializing StoryMemoryWorker...")
         build_story_memory(args.output_dir)
+
+    if "PortfolioWorker" in worker_names:
+        logger.info("Initializing PortfolioWorker...")
+        build_portfolio_db(args.output_dir)
 
     if any(
         node in worker_names
