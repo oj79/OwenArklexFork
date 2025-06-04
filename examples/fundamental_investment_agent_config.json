@@ -50,6 +50,11 @@
             "name": "StoryMemoryWorker",
             "path": "story_memory_worker.py",
             "fixed_args": {"db_path": "stories.sqlite"}
+        },
+        {
+            "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
+            "name": "PortfolioWorker",
+            "path": "portfolio_worker.py"
         }
     ],
     "tools": [
