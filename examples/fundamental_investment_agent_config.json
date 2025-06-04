@@ -67,6 +67,21 @@
             "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
             "name": "get_fred_series",
             "path": "market_data/fred.py"
+        },
+        {
+            "id": "25735056-f758-4d4d-9b9c-c067ec96e059",
+            "name": "value_at_risk",
+            "path": "portfolio/risk_metrics.py"
+        },
+        {
+            "id": "4528c48c-6507-413f-b63a-63a500699df5",
+            "name": "max_drawdown",
+            "path": "portfolio/risk_metrics.py"
+        },
+        {
+            "id": "dfbefd00-bd56-4137-8517-b485dc48a714",
+            "name": "sharpe_ratio",
+            "path": "portfolio/risk_metrics.py"
         }
     ]
 }
