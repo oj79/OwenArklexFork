@@ -1,66 +1,63 @@
 [
     {
-        "task_name": "Provide analysis on company financial statements",
+        "task_name": "Provide analysis of financial statements",
         "steps": [
-            "Inquire about the specific company or companies the user is interested in analyzing for investments.",
-            "Gather necessary filings and market data related to the specified company/companies using the data_collection_and_retrieval resource.",
-            "Provide an overview of the company's financial health and performance through financial_statement_analysis using CompanyRAGWorker.",
-            "Analyze current market trends that may impact the company's stock performance using market_trend_analysis.",
-            "Determine the stock's intrinsic value using stock_valuation to identify whether it's undervalued or overvalued.",
-            "Assess potential risks associated with investing in the company's stock using investment_risk_assessment.",
-            "Summarize the analysis and provide tailored investment suggestions to the user.",
-            "Ask if the user has further questions or needs additional analysis on another company or financial aspect."
+            "Retrieve and gather necessary financial and market data about the company from available resources.",
+            "Prepare the collected data by cleaning and organizing it to ensure accuracy in subsequent analysis.",
+            "Perform a detailed financial analysis by interpreting financial statements and calculating key financial ratios.",
+            "Conduct a market position analysis by evaluating the company's market share, competitors, and market trends.",
+            "Provide a well-rounded investment recommendation considering the financial and market position analyses.",
+            "Ask if the user requires further assistance or has any additional questions."
         ]
     },
     {
-        "task_name": "Provide insights on current market trends affecting investments",
+        "task_name": "Calculate and explain financial ratios",
         "steps": [
-            "Use the MessageWorker to greet the user and ask if they are looking for insights on current market trends affecting investments.",
-            "Use the SearchWorker to gather real-time information about current market trends potentially affecting investments.",
-            "Utilize the market_trend_analysis subtask to analyze the collected data and identify significant trends impacting the investment landscape.",
-            "Employ the CompanyRAGWorker to provide context or historical information from company filings and documents to support or contrast the current market trends.",
-            "Combine insights from FaissRAGWorker and market_data-fred-get_fred_series to provide specific data-driven insights related to the current trends.",
-            "Use the StoryMemoryWorker to store the conversation for future reference and continuity.",
-            "Deliver the insights to the user through the MessageWorker, highlighting the key market trends and their potential implications on investments.",
-            "Ask the user if they have any specific questions or need further analysis on particular market trends or investment opportunities."
+            "Initiate conversation by asking the user for the specific company they are interested in analyzing.",
+            "Use the CompanyRAGWorker to retrieve and gather necessary financial and market data about the specified company.",
+            "Clean and organize the collected data using data_analysis_preparation to ensure it is ready for detailed analysis.",
+            "Perform financial analysis by calculating key financial ratios such as profitability, liquidity, and solvency using the financial_analysis process.",
+            "Generate an explanation of the calculated financial ratios and their implications for investment decisions, and communicate this information to the user via the MessageWorker.",
+            "Ask the user if they would like further details or analysis about specific financial ratios or additional insights into the company's market position.",
+            "If requested, analyze the company's market position using the market_position_analysis task, and provide insights about competitors and market trends.",
+            "Offer a medium-term investment recommendation by integrating financial ratios and market position analysis, ensuring the user is well-informed of potential risks and benefits."
         ]
     },
     {
-        "task_name": "Assist in stock valuation using financial ratios and metrics",
+        "task_name": "Analyze market position and competitive landscape",
         "steps": [
-            "Initiate the conversation and ask the user which company they are interested in for stock valuation.",
-            "Fetch relevant company filings and market data using data_collection_and_retrieval resources.",
-            "Analyze the financial statements of the company using financial_statement_analysis subtask to assess its financial health.",
-            "Evaluate the current market trends connected to the company with market_trend_analysis subtask.",
-            "Perform stock valuation using financial ratios and valuation methods with stock_valuation subtask to determine intrinsic value.",
-            "Discuss potential investment risks using investment_risk_assessment subtask to provide a comprehensive view of risk.",
-            "Summarize the findings and provide a final recommendation or answer any further questions the user may have."
+            "Use CompanyRAGWorker to retrieve and analyze the company's filings and documents to understand its financial health and strategy.",
+            "Use market_position_analysis to assess the company's current market share, identify competitors, and evaluate market trends.",
+            "Employ SearchWorker to gather real-time competitive landscape information and market conditions.",
+            "Use StoryMemoryWorker to persist conversation stories and key findings for user reference.",
+            "Utilize investment_recommendation_analysis to form a medium-term investment recommendation and present it using MessageWorker."
         ]
     },
     {
-        "task_name": "Provide risk assessment for potential stock investments",
+        "task_name": "Provide historical stock performance analysis",
         "steps": [
-            "Ask the user for the company or stock they are interested in and any specific concerns they may have regarding investment risks.",
-            "Use CompanyRAGWorker to gather insights from company filings and documents specific to the company or stock provided by the user.",
-            "Fetch and analyze daily time series data using market_data-alpha_vantage-get_alpha_daily and relevant economic indicators using market_data-fred-get_fred_series to evaluate market conditions.",
-            "Conduct financial statement analysis to assess the financial health and performance of the company using financial_statement_analysis.",
-            "Perform investment risk assessment focusing on potential risks identified from the data and analysis conducted in the previous steps using investment_risk_assessment.",
-            "Provide a comprehensive risk assessment report to the user addressing their specific concerns, utilizing MessageWorker for delivery.",
-            "Ask if the user needs any further explanation or additional information regarding other potential investments."
+            "Start the conversation by asking the user for the specific company they are interested in analyzing for historical stock performance.",
+            "Retrieve historical stock data for the specified company using the market_data-alpha_vantage-get_alpha_daily resource.",
+            "Using the data_analysis_preparation task, clean and organize the fetched historical stock data for accurate analysis.",
+            "Perform a financial analysis to evaluate the past performance metrics of the company using the financial_analysis resource.",
+            "Deliver the analysis results back to the user, highlighting key insights on historical stock trends and performance.",
+            "Ask the user if they need further details or have any questions regarding the analysis provided.",
+            "If the user has additional questions or needs more analysis, utilize the appropriate resources and repeat steps 2-5 as necessary.",
+            "Once analysis needs are satisfied, ask the user if they need assistance with any other company or investment inquiries."
         ]
     },
     {
-        "task_name": "Offer comparisons between multiple stocks based on key criteria",
+        "task_name": "Provide medium-term investment recommendations",
         "steps": [
-            "Initiate the conversation with the user and inquire about the specific stocks or criteria they are interested in comparing.",
-            "Retrieve relevant financial filings and documents using CompanyRAGWorker for the specified stocks.",
-            "Fetch real-time market data for the specified stocks using market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series services.",
-            "Perform financial statement analysis on the retrieved data to assess each company's financial health.",
-            "Conduct a market trend analysis to understand the current trends that may impact the selected stocks.",
-            "Utilize stock valuation techniques to determine the intrinsic value of each stock and compare them based on valuation metrics.",
-            "Evaluate the potential investment risks associated with the stocks using investment risk assessment methods.",
-            "Present the analysis results and comparisons to the user, highlighting key differences and potential investment opportunities.",
-            "Ask the user if they need further clarification or if they have additional stocks or criteria for comparison."
+            "Inquire about the user's investment objectives and risk tolerance.",
+            "Collect necessary financial and market data for companies of interest using company_data_collection.",
+            "Prepare the collected data for analysis using data_analysis_preparation.",
+            "Conduct financial analysis to evaluate the company's financial health using financial_analysis.",
+            "Analyze the company's market position using market_position_analysis.",
+            "Calculate risk metrics such as Value at Risk (VaR), max drawdown, and Sharpe ratio using the corresponding portfolio-risk_metrics functions.",
+            "Use investment_recommendation_analysis to synthesize findings and provide medium-term investment recommendations.",
+            "Ask the user if they need further information or clarification about the recommendations provided.",
+            "Offer assistance with tracking portfolio positions, recording trades, or managing investment notes using PortfolioWorker."
         ]
     }
 ]
