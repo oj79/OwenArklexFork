@@ -69,7 +69,12 @@ class CompanyRAGWorker(FaissRAGWorker):
             return
         if os.path.isdir(self.index_path):
             try:
-                self.index = FAISS.load_local(self.index_path, self.embedding_model)
+                # self.index = FAISS.load_local(self.index_path, self.embedding_model)
+                self.index = FAISS.load_local(
+                    self.index_path,
+                    self.embedding_model,
+                    allow_dangerous_deserialization=True,
+                )
             except Exception as err:
                 logger.error(f"Failed to load index: {err}")
                 self.index = None
