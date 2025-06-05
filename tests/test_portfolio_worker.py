@@ -1,16 +1,19 @@
 from arklex.env.tools.portfolio.build_portfolio_db import build_portfolio_db
 from arklex.env.workers.portfolio_worker import PortfolioWorker
 from arklex.utils.graph_state import MessageState, ConvoMessage, BotConfig, LLMConfig
+from arklex.utils.slot import Slot
 from arklex.utils.model_config import MODEL
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-class DummySlot:
-    def __init__(self, name, value):
-        self.name = name
-        self.verified_value = value
+def _make_slot(name: str, value):
+    """Create a Slot instance with a verified value for testing."""
+    slot = Slot(name=name)
+    # Slots don't define ``verified_value`` so set it dynamically
+    object.__setattr__(slot, "verified_value", value)
+    return slot
 
 
 def test_add_trade_and_view(tmp_path):
@@ -33,10 +36,10 @@ def test_add_trade_and_view(tmp_path):
         bot_config=bot_cfg,
         slots={
             "AddTrade": [
-                DummySlot("symbol", "AAPL"),
-                DummySlot("quantity", 10),
-                DummySlot("price", 150),
-                DummySlot("side", "buy"),
+                _make_slot("symbol", "AAPL"),
+                _make_slot("quantity", 10),
+                _make_slot("price", 150),
+                _make_slot("side", "buy"),
             ]
         },
     )
