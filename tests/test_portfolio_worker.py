@@ -31,15 +31,19 @@ def test_add_trade_and_view(tmp_path):
     msg_state = MessageState(
         user_message=ConvoMessage(history="", message="add"),
         bot_config=bot_cfg,
-        slots=[
-            DummySlot("symbol", "AAPL"),
-            DummySlot("quantity", 10),
-            DummySlot("price", 150),
-            DummySlot("side", "buy"),
-        ],
+        slots={
+            "AddTrade": [
+                DummySlot("symbol", "AAPL"),
+                DummySlot("quantity", 10),
+                DummySlot("price", 150),
+                DummySlot("side", "buy"),
+            ]
+        },
     )
 
-    worker.PFActions.add_trade(msg_state)
+    add_state = msg_state.model_copy()
+    add_state.slots = msg_state.slots["AddTrade"]
+    worker.PFActions.add_trade(add_state)
 
     view_state = MessageState(bot_config=bot_cfg)
     result = worker.PFActions.get_portfolio(view_state)
