@@ -2,12 +2,14 @@ import os
 import asyncio
 import time
 from typing import Any, Dict, Tuple
+import inspect
 
 import httpx
 import json
 
 from arklex.env.tools.tools import register_tool
-from arklex.exceptions import AuthenticationError
+from arklex.exceptions import AuthenticationError, ToolExecutionError
+from arklex.env.tools.market_data._exception_prompt import MarketDataExceptionPrompt
 
 CACHE_TTL = 300  # seconds
 RATE_LIMIT = 10  # FRED limits ~100 per minute but we'll be conservative
@@ -34,6 +36,7 @@ async def _fetch_fred_series(series_id: str, observation_start: str = "", observ
     api_key = os.getenv("FRED_API_KEY")
     if not api_key:
         raise AuthenticationError("Missing FRED_API_KEY")
+    series_id = series_id.strip()
     cache_key = (series_id, observation_start, observation_end)
     now = time.time()
     if cache_key in _cache and now - _cache[cache_key][0] < CACHE_TTL:
@@ -47,7 +50,17 @@ async def _fetch_fred_series(series_id: str, observation_start: str = "", observ
         params["observation_start"] = observation_start
     if observation_end:
         params["observation_end"] = observation_end
-    data = await _rate_limited_request("https://api.stlouisfed.org/fred/series/observations", params)
+    # data = await _rate_limited_request("https://api.stlouisfed.org/fred/series/observations", params)
+    try:
+        data = await _rate_limited_request(
+            "https://api.stlouisfed.org/fred/series/observations", params
+        )
+    except httpx.HTTPStatusError as e:
+        func_name = inspect.currentframe().f_code.co_name
+        raise ToolExecutionError(
+            func_name,
+            MarketDataExceptionPrompt.FRED_REQUEST_ERROR_PROMPT,
+        ) from e
     _cache[cache_key] = (time.time(), data)
     return data
 
