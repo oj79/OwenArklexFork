@@ -16,7 +16,7 @@ logger: logging.Logger = logging.getLogger(__name__)
 class SearchEngine:
     @staticmethod
     def search(state: MessageState) -> MessageState:
-        tavily_search_executor: TavilySearchExecutor = TavilySearchExecutor()
+        tavily_search_executor: TavilySearchExecutor = TavilySearchExecutor(state.bot_config.llm_config)
         text_results: str = tavily_search_executor.search(state)
         state.message_flow = text_results
         return state
