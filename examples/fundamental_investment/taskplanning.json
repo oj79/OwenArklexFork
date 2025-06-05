@@ -1,64 +1,57 @@
 [
     {
-        "task_name": "Analyze key financial metrics from company filings",
+        "task_name": "Provide analysis of company financial statements",
         "steps": [
-            "Initiate the conversation by asking the user for the name of the company they are interested in analyzing.",
-            "Use the CompanyRAGWorker to retrieve and present key financial metrics from the most recent company filings to the user.",
-            "Inquire if the user wants to compare these metrics with another company or with industry benchmarks.",
-            "If the user opts for comparison, use comparative_analysis to compare the specified financial metrics and deliver insights to the user.",
-            "Ask the user if they would like further analysis on market trends or risk assessment for the company in question.",
-            "If the user requests it, use analyze_market_data to provide current market trends or risk_assessment to identify any potential risks.",
-            "Offer to generate medium-term investment recommendations based on the analyzed data.",
-            "Provide the recommendations and ask if the user needs additional information or assistance with managing their portfolio."
+            "Inquire which company's financial statements the user is interested in analyzing and any specific metrics they are focused on.",
+            "Use CompanyRAGWorker to retrieve and parse the requested company's latest financial statements from filings and documents.",
+            "Deliver an initial analysis of the company's financial statements using MessageWorker, highlighting key financial metrics and any notable trends.",
+            "Ask if the user would like a deeper analysis on specific aspects, such as comparative analysis with competitors or trend analysis on certain financial metrics.",
+            "If requested, perform the comparative or trend analysis and provide detailed insights using MessageWorker. Also, offer to conduct a real-time search for any additional market data if needed using SearchWorker."
         ]
     },
     {
-        "task_name": "Provide insights on market trends based on current data",
+        "task_name": "Assist in evaluating market trends",
         "steps": [
-            "MessageWorker prompts the user to specify any particular market trends or sectors they are interested in analyzing.",
-            "Utilize SearchWorker to gather the latest market trends and relevant news for the specified trends or sectors in real-time.",
-            "Use the market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to fetch current market data and economic series related to the specified sectors.",
-            "Apply analyze_market_data subtask to synthesize the collected data, extracting insights on recent market movements and trends.",
-            "MessageWorker communicates the synthesized insights back to the user, highlighting key trends and data-driven conclusions.",
-            "Inquire if the user would like additional analyses, comparisons, or if they're interested in specific investment recommendations."
+            "Inquire about the user's specific needs or areas of interest regarding market trends they are interested in analyzing.",
+            "Use market_data-fred-get_fred_series and market_data-alpha_vantage-get_alpha_daily to collect relevant financial and economic data.",
+            "Perform trend_analysis to assess historical data and identify patterns or trends based on the data collected.",
+            "Deliver the key findings and insights from the trend analysis to the user using MessageWorker.",
+            "Ask the user if they would like further analysis or recommendations based on the trends identified, or if they need information on specific companies.",
+            "Provide additional analyses or recommendations as requested (e.g., carry out comparative_analysis if the user is interested in specific companies)."
         ]
     },
     {
-        "task_name": "Assess risk factors associated with potential investments",
+        "task_name": "Facilitate company comparison",
         "steps": [
-            "Prompt the user to specify the companies or investments they are interested in assessing for risk factors.",
-            "Use the CompanyRAGWorker to gather information from company filings and documents, extracting key financial metrics relevant to risk assessment.",
-            "Leverage the market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to analyze current market conditions and trends affecting the investments.",
-            "Apply risk assessment metrics such as portfolio-risk_metrics-value_at_risk, portfolio-risk_metrics-max_drawdown, and portfolio-risk_metrics-sharpe_ratio to evaluate potential risks for the specified investments.",
-            "Summarize the identified risk factors and present the findings to the user using the MessageWorker.",
-            "Ask if the user needs further analysis or recommendations on managing these risks."
+            "Inquire which companies the user is interested in comparing and any specific metrics or aspects they wish to focus on (e.g., financial health, market position).",
+            "Retrieve relevant data for the specified companies using CompanyRAGWorker and market data resources. Assess and analyze the data for key metrics that align with the user's focus.",
+            "Perform comparative analysis to evaluate the companies across the specified metrics and summarize key findings. Highlight strengths and weaknesses.",
+            "Deliver the comparative analysis results to the user via MessageWorker. Ask if the user would like additional information or a deeper dive into specific areas.",
+            "Confirm if the user needs further assistance in making an investment decision or if they want to record preferences or observations in their portfolio using PortfolioWorker."
         ]
     },
     {
-        "task_name": "Generate medium-term investment recommendations based on analysis",
+        "task_name": "Provide medium-term investment recommendations",
         "steps": [
-            "Ask the user for specific sectors or companies they are interested in for investment.",
-            "Retrieve and analyze the necessary company filings and documents using CompanyRAGWorker.",
-            "Fetch the relevant market data using market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series, then analyze the current market trends.",
-            "Perform a comparative analysis of the selected companies using extract_financial_data and comparative_analysis.",
-            "Conduct a risk assessment using risk_assessment, portfolio-risk_metrics-value_at_risk, portfolio-risk_metrics-max_drawdown, and portfolio-risk_metrics-sharpe_ratio.",
-            "Generate medium-term investment recommendations based on the analysis using generate_investment_recommendations.",
-            "Present the findings and recommendations to the user using MessageWorker and ask if they need further insights or have additional questions.",
-            "Record any investment decisions or notes in the user's portfolio using PortfolioWorker, if the user decides to act on the recommendations."
+            "Initiate the conversation by asking the user about their specific investment goals and risk tolerance for medium-term investments.",
+            "Utilize the CompanyRAGWorker to gather and analyze the company's filings and documents that are relevant to the user's investment criteria.",
+            "Obtain and analyze data using market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to provide insights into the market and economic conditions.",
+            "Conduct trend analysis and comparative analysis based on gathered data to identify potential investment opportunities.",
+            "Generate medium-term investment recommendations using the investment_recommendation_generation subtask and present options to the user.",
+            "Ask the user if they need further information or have specific companies they want to focus on.",
+            "Utilize PortfolioWorker to record any decisions made by the user regarding trades or notes on potential investments.",
+            "Summarize the session, confirm action items, and propose a plan for monitoring investment performance."
         ]
     },
     {
-        "task_name": "Conduct comparative analysis of multiple companies",
+        "task_name": "Deliver updates on stock performance",
         "steps": [
-            "Ask the user to provide a list of companies they are interested in for comparative analysis.",
-            "Extract key financial metrics from the company's filings for each company using the CompanyRAGWorker and extract_financial_data.",
-            "Analyze current market trends for each company using market_data-alpha_vantage-get_alpha_daily and analyze_market_data.",
-            "Evaluate risk factors associated with each company using risk_assessment.",
-            "Perform comparative analysis of the financial metrics and market performance of the companies using comparative_analysis.",
-            "Provide a summary of the comparative analysis, highlighting strengths and weaknesses of each company.",
-            "Ask the user if they would like investment recommendations based on the analysis using generate_investment_recommendations.",
-            "Provide investment recommendations if requested by the user.",
-            "Check if the user needs additional assistance or further information."
+            "Retrieve the most recent stock performance data using 'market_data-alpha_vantage-get_alpha_daily' for the relevant company.",
+            "Deliver stock performance updates to the user using 'MessageWorker'.",
+            "Check if the user wants additional historical trend insights and use 'trend_analysis' to provide a summary.",
+            "Inquire if the user wants a comparative analysis with other companies using 'comparative_analysis'.",
+            "If the user requests, offer medium-term investment recommendations using 'investment_recommendation_generation'.",
+            "Store key conversation points using 'StoryMemoryWorker' for future reference and personalized interactions."
         ]
     }
 ]
