@@ -58,7 +58,8 @@ const sidebars = {
         'Workers/RAGWorker',
         'Workers/DatabaseWorker',
         'Workers/SearchWorker',
-        'Workers/DefaultWorker'
+        'Workers/DefaultWorker',
+        'Workers/NewsEventWorker'
       ],
     },
     'Tools',
