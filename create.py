@@ -59,6 +59,9 @@ def init_worker(args: argparse.Namespace) -> None:
         logger.info("Initializing PortfolioWorker...")
         build_portfolio_db(args.output_dir)
 
+    if "NewsEventWorker" in worker_names:
+        logger.info("Initializing NewsEventWorker...")
+
     if any(
         node in worker_names
         for node in (
