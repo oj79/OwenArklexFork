@@ -1,87 +1,124 @@
 {
     "role": "fundamental investment assistant",
-    "user_objective": "The assistant helps analyze companies for medium-term stock investments using filings and market data.",
-    "builder_objective": "",
-    "domain": "finance",
-    "intro": "This assistant provides medium-term stock investment analysis using company filings and market data.",
-    "company_summary": "The dataset includes 10-K filings from Apple, Blackstone, ConocoPhillips, Walmart, and Xponential Fitness detailing their financial performance in the past 4 to 5 years.",
-    "task_docs": [],
-    "rag_docs": [
-        {"source": "Company docs/Apple", "type": "file"},
-        {"source": "Company docs/Blackstone", "type": "file"},
-        {"source": "Company docs/ConocoPhillips", "type": "file"},
-        {"source": "Company docs/Walmart", "type": "file"},
-        {"source": "Company docs/Xponential Fitness", "type": "file"}
-    ],
-    "tasks": [],
-    "workers": [
-        {
-            "id": "9aa47724-0b77-4752-9528-cf4b06a46915",
-            "name": "FaissRAGWorker",
-            "path": "faiss_rag_worker.py"
-        },
-        {
-            "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
-            "name": "CompanyRAGWorker",
-            "path": "company_rag_worker.py",
-            "fixed_args": {
-                "use_milvus": false,
-                "doc_paths": [
-                    "Company docs/Apple",
-                    "Company docs/Blackstone",
-                    "Company docs/ConocoPhillips",
-                    "Company docs/Walmart",
-                    "Company docs/Xponential Fitness"
-                ]
-            }
-        },
-        {
-            "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-            "name": "MessageWorker",
-            "path": "message_worker.py"
-        },
-        {
-            "id": "9c15af81-04b3-443e-be04-a3522124b905",
-            "name": "SearchWorker",
-            "path": "search_worker.py"
-        },
-        {
-            "id": "c50dbfab-501f-4c86-9c21-9a0cf579725b",
-            "name": "StoryMemoryWorker",
-            "path": "story_memory_worker.py",
-            "fixed_args": {"db_path": "stories.sqlite"}
-        },
-        {
-            "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
-            "name": "PortfolioWorker",
-            "path": "portfolio_worker.py"
-        }
-    ],
-    "tools": [
-        {
-            "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-            "name": "get_alpha_daily",
-            "path": "market_data/alpha_vantage.py"
-        },
-        {
-            "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
-            "name": "get_fred_series",
-            "path": "market_data/fred.py"
-        },
-        {
-            "id": "25735056-f758-4d4d-9b9c-c067ec96e059",
-            "name": "value_at_risk",
-            "path": "portfolio/risk_metrics.py"
-        },
-        {
-            "id": "4528c48c-6507-413f-b63a-63a500699df5",
-            "name": "max_drawdown",
-            "path": "portfolio/risk_metrics.py"
-        },
-        {
-            "id": "dfbefd00-bd56-4137-8517-b485dc48a714",
-            "name": "sharpe_ratio",
-            "path": "portfolio/risk_metrics.py"
-        }
-    ]
+  "user_objective": "The assistant helps analyze companies for medium-term stock investments using filings and market data.",
+  "builder_objective": "",
+  "domain": "finance",
+  "intro": "This assistant provides medium-term stock investment analysis using company filings and market data.",
+  "company_summary": "The dataset includes 10-K filings from Apple, Blackstone, ConocoPhillips, Walmart, and Xponential Fitness detailing their financial performance in the past 4 to 5 years.",
+  "task_docs": [],
+  "rag_docs": [
+    {
+      "source": "Company docs/Apple",
+      "type": "file"
+    },
+    {
+      "source": "Company docs/Blackstone",
+      "type": "file"
+    },
+    {
+      "source": "Company docs/ConocoPhillips",
+      "type": "file"
+    },
+    {
+      "source": "Company docs/Walmart",
+      "type": "file"
+    },
+    {
+      "source": "Company docs/Xponential Fitness",
+      "type": "file"
+    }
+  ],
+  "tasks": [],
+  "workers": [
+    {
+      "id": "9aa47724-0b77-4752-9528-cf4b06a46915",
+      "name": "FaissRAGWorker",
+      "path": "faiss_rag_worker.py"
+    },
+    {
+      "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+      "name": "CompanyRAGWorker",
+      "path": "company_rag_worker.py",
+      "fixed_args": {
+        "use_milvus": false,
+        "doc_paths": [
+          "Company docs/Apple",
+          "Company docs/Blackstone",
+          "Company docs/ConocoPhillips",
+          "Company docs/Walmart",
+          "Company docs/Xponential Fitness"
+        ]
+      }
+    },
+    {
+      "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+      "name": "MessageWorker",
+      "path": "message_worker.py"
+    },
+    {
+      "id": "9c15af81-04b3-443e-be04-a3522124b905",
+      "name": "SearchWorker",
+      "path": "search_worker.py"
+    },
+    {
+      "id": "c50dbfab-501f-4c86-9c21-9a0cf579725b",
+      "name": "StoryMemoryWorker",
+      "path": "story_memory_worker.py",
+      "fixed_args": {
+        "db_path": "stories.sqlite"
+      }
+    },
+    {
+      "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
+      "name": "PortfolioWorker",
+      "path": "portfolio_worker.py"
+    },
+    {
+      "id": "1a2b3c4d-1111-2222-3333-444455556666",
+      "name": "NewsEventWorker",
+      "path": "news_event_worker.py",
+      "fixed_args": {
+        "feeds": [
+          "https://example.com/rss"
+        ]
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
+      "name": "get_alpha_daily",
+      "path": "market_data/alpha_vantage.py"
+    },
+    {
+      "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
+      "name": "get_fred_series",
+      "path": "market_data/fred.py"
+    },
+    {
+      "id": "25735056-f758-4d4d-9b9c-c067ec96e059",
+      "name": "value_at_risk",
+      "path": "portfolio/risk_metrics.py"
+    },
+    {
+      "id": "4528c48c-6507-413f-b63a-63a500699df5",
+      "name": "max_drawdown",
+      "path": "portfolio/risk_metrics.py"
+    },
+    {
+      "id": "dfbefd00-bd56-4137-8517-b485dc48a714",
+      "name": "sharpe_ratio",
+      "path": "portfolio/risk_metrics.py"
+    },
+    {
+      "id": "bbbbcccc-dddd-eeee-ffff-000011112222",
+      "name": "simple_sentiment",
+      "path": "market_data/sentiment.py"
+    },
+    {
+      "id": "ccccdddd-eeee-ffff-0000-111122223333",
+      "name": "apply_pct_change",
+      "path": "market_data/scenario.py"
+    }
+  ]
 }
