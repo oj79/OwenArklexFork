@@ -52,6 +52,7 @@ class FaissRetrieverExecutor:
         texts: List[Document],
         index_path: str,
         llm_config: LLMConfig,
+        index: Optional[FAISS] = None,
     ) -> None:
         self.texts: List[Document] = texts
         self.index_path: str = index_path
@@ -65,11 +66,16 @@ class FaissRetrieverExecutor:
         self.llm = PROVIDER_MAP.get(llm_config.llm_provider, ChatOpenAI)(
             model=llm_config.model_type_or_path
         )
+        self.index: Optional[FAISS] = index
         self.retriever = self._init_retriever()
 
     def _init_retriever(self, **kwargs: Any) -> Any:
         # initiate FAISS retriever
-        docsearch: FAISS = FAISS.from_documents(self.texts, self.embedding_model)
+        # docsearch: FAISS = FAISS.from_documents(self.texts, self.embedding_model)
+        if self.index is None:
+            docsearch: FAISS = FAISS.from_documents(self.texts, self.embedding_model)
+        else:
+            docsearch = self.index
         retriever = docsearch.as_retriever(**kwargs)
         return retriever
 
@@ -113,11 +119,39 @@ class FaissRetrieverExecutor:
     ) -> "FaissRetrieverExecutor":
         document_path: str = os.path.join(database_path, "chunked_documents.pkl")
         index_path: str = os.path.join(database_path, "index")
-        logger.info(f"Loaded documents from {document_path}")
-        with open(document_path, "rb") as fread:
-            documents: List[Document] = pickle.load(fread)
-        logger.info(f"Loaded {len(documents)} documents")
+        # logger.info(f"Loaded documents from {document_path}")
+        # with open(document_path, "rb") as fread:
+        #     documents: List[Document] = pickle.load(fread)
+        # logger.info(f"Loaded {len(documents)} documents")
+
+        index: Optional[FAISS] = None
+        documents: List[Document] = []
+
+        if os.path.isdir(index_path):
+            try:
+                index = FAISS.load_local(
+                    index_path,
+                    PROVIDER_EMBEDDINGS.get(
+                        llm_config.llm_provider, OpenAIEmbeddings
+                    )(),
+                    allow_dangerous_deserialization=True,
+                )
+                documents = list(index.docstore._dict.values())
+                logger.info(f"Loaded FAISS index from {index_path}")
+            except Exception as err:
+                logger.error(f"Failed to load index: {err}")
+                index = None
+
+        if index is None:
+            logger.info(f"Loaded documents from {document_path}")
+            with open(document_path, "rb") as fread:
+                documents = pickle.load(fread)
+            logger.info(f"Loaded {len(documents)} documents")
 
         return FaissRetrieverExecutor(
-            texts=documents, index_path=index_path, llm_config=llm_config
+            # texts=documents, index_path=index_path, llm_config=llm_config
+            texts=documents,
+            index_path=index_path,
+            llm_config=llm_config,
+            index=index,
         )
