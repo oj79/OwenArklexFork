@@ -8,7 +8,7 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Welcome to your Fundamental Investment Assistant. How can I assist you in analyzing companies for medium-term stock investments today? Feel free to ask about the latest filings or market data insights!",
+                    "value": "Welcome to your Fundamental Investment Assistant! I'm here to help you analyze companies for medium-term stock investments using the latest filings and market data. How can I assist you today?",
                     "task": "start message",
                     "directed": false
                 },
@@ -24,8 +24,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Which company's financial statements are you interested in analyzing? Are there specific metrics you would like to focus on?",
-                    "task": "Inquire which company's financial statements the user is interested in analyzing and any specific metrics they are focused on.",
+                    "value": "Could you please specify the company you wish to analyze and any particular financial aspects you are interested in?",
+                    "task": "Inquire the user about the specific company to analyze and any particular financial aspects they're interested in.",
                     "directed": false
                 }
             }
@@ -39,7 +39,7 @@
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Use CompanyRAGWorker to retrieve and parse the requested company's latest financial statements from filings and documents.",
+                    "task": "Use CompanyRAGWorker to retrieve and compile relevant financial data from company filings for the specified company.",
                     "directed": false
                 }
             }
@@ -48,12 +48,12 @@
             "3",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "nested_graph",
+                    "name": "extract_financial_data"
                 },
                 "attribute": {
-                    "value": "Here is an initial analysis of the company's financial statements. The revenue has increased by 15% compared to last year, indicating a positive growth trend.",
-                    "task": "Deliver an initial analysis of the company's financial statements using MessageWorker, highlighting key financial metrics and any notable trends.",
+                    "value": "46",
+                    "task": "Leverage the extract_financial_data subtask to gather and present raw financial data to the user.",
                     "directed": false
                 }
             }
@@ -62,12 +62,12 @@
             "4",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "nested_graph",
+                    "name": "analyze_financial_ratios"
                 },
                 "attribute": {
-                    "value": "Would you like a deeper analysis on specific aspects, such as a comparative analysis with competitors or trend analysis on certain financial metrics?",
-                    "task": "Ask if the user would like a deeper analysis on specific aspects, such as comparative analysis with competitors or trend analysis on certain financial metrics.",
+                    "value": "49",
+                    "task": "Use analyze_financial_ratios to calculate and present key financial ratios that provide insights into the company's financial health.",
                     "directed": false
                 }
             }
@@ -76,12 +76,12 @@
             "5",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "nested_graph",
+                    "name": "compare_company_metrics"
                 },
                 "attribute": {
-                    "value": "Based on your request, here is the comparative analysis with competitors. If you need additional market data, shall I conduct a real-time search for you?",
-                    "task": "If requested, perform the comparative or trend analysis and provide detailed insights using MessageWorker. Also, offer to conduct a real-time search for any additional market data if needed using SearchWorker.",
+                    "value": "53",
+                    "task": "Utilize compare_company_metrics to perform a comparative analysis of the company's performance metrics against competitors or industry averages, if applicable.",
                     "directed": false
                 }
             }
@@ -90,12 +90,12 @@
             "6",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "1a2b3c4d-1111-2222-3333-444455556666",
+                    "name": "NewsEventWorker"
                 },
                 "attribute": {
-                    "value": "Could you let us know about the specific market trends or areas you are interested in analyzing so we can provide personalized insights?",
-                    "task": "Inquire about the user's specific needs or areas of interest regarding market trends they are interested in analyzing to ensure personalized insights.",
+                    "value": "",
+                    "task": "With the help of NewsEventWorker, provide context or recent events that may influence the company's financial situation or market position.",
                     "directed": false
                 }
             }
@@ -105,11 +105,11 @@
             {
                 "resource": {
                     "id": "nested_graph",
-                    "name": "data_collection_and_retrieval"
+                    "name": "risk_assessment"
                 },
                 "attribute": {
-                    "value": "31",
-                    "task": "Use market_data-fred-get_fred_series and market_data-alpha_vantage-get_alpha_daily to collect relevant financial and economic data tailored to the user's interests.",
+                    "value": "56",
+                    "task": "Conduct risk assessment using historical data to evaluate potential risks associated with an investment in the company.",
                     "directed": false
                 }
             }
@@ -119,11 +119,11 @@
             {
                 "resource": {
                     "id": "nested_graph",
-                    "name": "trend_analysis"
+                    "name": "formulate_investment_recommendations"
                 },
                 "attribute": {
-                    "value": "35",
-                    "task": "Perform trend_analysis to assess historical data and identify patterns or trends based on the data collected, focusing on areas that align with user interests.",
+                    "value": "59",
+                    "task": "Formulate and provide medium-term investment recommendations based on the financial analysis and risk assessment performed.",
                     "directed": false
                 }
             }
@@ -136,8 +136,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Here are the key findings from our trend analysis focused on your areas of interest.",
-                    "task": "Deliver the key findings and insights from the trend analysis to the user using MessageWorker, ensuring clarity and relevance to their specified interests.",
+                    "value": "Do you need further analysis or have any other inquiries about the company or other investment opportunities?",
+                    "task": "Ask the user if they need further analysis or have additional inquiries regarding the company or other investment opportunities.",
                     "directed": false
                 }
             }
@@ -150,8 +150,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Would you like further analysis or recommendations based on the trends identified, or do you need details on specific companies?",
-                    "task": "Ask the user if they would like further analysis or recommendations based on the trends identified, or if they need information on specific companies, emphasizing the value of deeper insights.",
+                    "value": "Which companies are you interested in comparing for performance metrics?",
+                    "task": "Start the interaction by asking the user which companies they are interested in comparing for performance metrics.",
                     "directed": false
                 }
             }
@@ -160,12 +160,12 @@
             "11",
             {
                 "resource": {
-                    "id": "nested_graph",
-                    "name": "comparative_analysis"
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
                 },
                 "attribute": {
-                    "value": "38",
-                    "task": "Provide additional analyses or recommendations as requested, such as conducting comparative_analysis if the user is interested in specific companies, ensuring all responses are aligned with their priorities.",
+                    "value": "",
+                    "task": "Use the CompanyRAGWorker to retrieve and parse relevant filings and documents for the selected companies to gather necessary financial data.",
                     "directed": false
                 }
             }
@@ -174,12 +174,12 @@
             "12",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "nested_graph",
+                    "name": "extract_financial_data"
                 },
                 "attribute": {
-                    "value": "Which companies are you interested in comparing, and are there any specific metrics or aspects you would like to focus on?",
-                    "task": "Inquire which companies the user is interested in comparing and any specific metrics or aspects they wish to focus on (e.g., financial health, market position). Ensure that these inquiries directly relate to the user's investment goals to establish rapport and relevance.",
+                    "value": "46",
+                    "task": "Extract financial data using the extract_financial_data resource to compile raw financial data from the company filings and market data.",
                     "directed": false
                 }
             }
@@ -188,12 +188,12 @@
             "13",
             {
                 "resource": {
-                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
-                    "name": "CompanyRAGWorker"
+                    "id": "nested_graph",
+                    "name": "analyze_financial_ratios"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Retrieve relevant data for the specified companies using CompanyRAGWorker and market data resources. Assess and analyze the data for key metrics that align with the user's focus, emphasizing how these align with broader market trends that may impact the user's investment strategy.",
+                    "value": "49",
+                    "task": "Analyze financial ratios of the selected companies using the analyze_financial_ratios resource to gain insights into their financial health and performance.",
                     "directed": false
                 }
             }
@@ -203,11 +203,11 @@
             {
                 "resource": {
                     "id": "nested_graph",
-                    "name": "comparative_analysis"
+                    "name": "compare_company_metrics"
                 },
                 "attribute": {
-                    "value": "38",
-                    "task": "Perform comparative analysis to evaluate the companies across the specified metrics and summarize key findings. Highlight strengths and weaknesses while relating them to potential investment opportunities that align with the user\u2019s investment goals.",
+                    "value": "53",
+                    "task": "Perform a comparative analysis of performance metrics between the selected companies with the compare_company_metrics resource to provide a clear assessment for the user.",
                     "directed": false
                 }
             }
@@ -220,8 +220,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Here are the results of the comparative analysis. Would you like additional information or a deeper dive into specific areas?",
-                    "task": "Deliver the comparative analysis results to the user via MessageWorker, ensuring clarity and relevance to their investment preferences. Ask if the user would like additional information or a deeper dive into specific areas, offering insights that may aid in making more informed investment decisions.",
+                    "value": "Here are the comparison results highlighting the key metrics and differences between the selected companies.",
+                    "task": "Present the comparison results to the user using the MessageWorker, highlighting key metrics and differences.",
                     "directed": false
                 }
             }
@@ -230,12 +230,12 @@
             "16",
             {
                 "resource": {
-                    "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
-                    "name": "PortfolioWorker"
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Do you need further assistance with your investment decision, or would you like to record your preferences or observations in your portfolio?",
-                    "task": "Confirm if the user needs further assistance in making an investment decision or if they want to record preferences or observations in their portfolio using PortfolioWorker, emphasizing how the assistant can continue assisting in their investment journey.",
+                    "value": "Do you need further analysis or additional comparisons with other companies?",
+                    "task": "Ask the user if they need further analysis or additional comparisons with other companies.",
                     "directed": false
                 }
             }
@@ -244,12 +244,12 @@
             "17",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "1a2b3c4d-1111-2222-3333-444455556666",
+                    "name": "NewsEventWorker"
                 },
                 "attribute": {
-                    "value": "What are your specific investment goals and risk tolerance for medium-term investments?",
-                    "task": "Initiate the conversation by asking the user about their specific investment goals and risk tolerance for medium-term investments.",
+                    "value": "",
+                    "task": "If requested, proceed with additional analysis or provide contextually relevant insights using resources like the NewsEventWorker or identify_market_trends to further assist the user.",
                     "directed": false
                 }
             }
@@ -258,12 +258,12 @@
             "18",
             {
                 "resource": {
-                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
-                    "name": "CompanyRAGWorker"
+                    "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
+                    "name": "PortfolioWorker"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Utilize the CompanyRAGWorker to gather and analyze the company's filings and documents that are relevant to the user's investment criteria.",
+                    "value": "Would you like help with investment strategies or portfolio management? I can also help record your decisions.",
+                    "task": "Conclude the interaction by asking if the user needs help with investment strategies or portfolio management, offering to record decisions using the PortfolioWorker.",
                     "directed": false
                 }
             }
@@ -272,12 +272,12 @@
             "19",
             {
                 "resource": {
-                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                    "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
+                    "name": "market_data-fred-get_fred_series"
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Obtain and analyze data using market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to provide insights into the market and economic conditions.",
+                    "task": "Utilize market_data-fred-get_fred_series and market_data-alpha_vantage-get_alpha_daily to fetch current economic and market data series, keeping the objective of enhancing user understanding of market dynamics.",
                     "directed": false
                 }
             }
@@ -286,12 +286,12 @@
             "20",
             {
                 "resource": {
-                    "id": "nested_graph",
-                    "name": "trend_analysis"
+                    "id": "1a2b3c4d-1111-2222-3333-444455556666",
+                    "name": "NewsEventWorker"
                 },
                 "attribute": {
-                    "value": "35",
-                    "task": "Conduct trend analysis and comparative analysis based on gathered data to identify potential investment opportunities.",
+                    "value": "",
+                    "task": "Leverage NewsEventWorker to monitor news feeds and obtain recent articles as context for market trends analysis, ensuring the assistant provides up-to-date and relevant information.",
                     "directed": false
                 }
             }
@@ -300,12 +300,12 @@
             "21",
             {
                 "resource": {
-                    "id": "nested_graph",
-                    "name": "investment_recommendation_generation"
+                    "id": "9aa47724-0b77-4752-9528-cf4b06a46915",
+                    "name": "FaissRAGWorker"
                 },
                 "attribute": {
-                    "value": "42",
-                    "task": "Generate medium-term investment recommendations using the investment_recommendation_generation subtask and present options to the user.",
+                    "value": "",
+                    "task": "Integrate search results and internal documentation insights using SearchWorker and FaissRAGWorker to enrich the market trends overview, making sure the perspective is comprehensive and aligned with user learning goals.",
                     "directed": false
                 }
             }
@@ -314,12 +314,12 @@
             "22",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "nested_graph",
+                    "name": "identify_market_trends"
                 },
                 "attribute": {
-                    "value": "Do you need further information or have specific companies you want to focus on?",
-                    "task": "Ask the user if they need further information or have specific companies they want to focus on.",
+                    "value": "62",
+                    "task": "Analyze gathered data using identify_market_trends to extract insights into current market trends, focusing on delivering actionable insights that align with the user's interests.",
                     "directed": false
                 }
             }
@@ -328,12 +328,12 @@
             "23",
             {
                 "resource": {
-                    "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
-                    "name": "PortfolioWorker"
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Utilize PortfolioWorker to record any decisions made by the user regarding trades or notes on potential investments.",
+                    "task": "Utilize MessageWorker to provide the user with a summary of current market trends and insights, framed to enhance comprehension and engagement.",
                     "directed": false
                 }
             }
@@ -342,12 +342,12 @@
             "24",
             {
                 "resource": {
-                    "id": "nested_graph",
-                    "name": "performance_monitoring"
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "46",
-                    "task": "Summarize the session, confirm action items, and propose a plan for monitoring investment performance.",
+                    "value": "",
+                    "task": "Ask the user, using MessageWorker, if they need more details on specific market trends or if they have follow-up questions, fostering a deeper understanding and dialogue around the presented data.",
                     "directed": false
                 }
             }
@@ -356,12 +356,12 @@
             "25",
             {
                 "resource": {
-                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Retrieve the most recent stock performance data using 'market_data-alpha_vantage-get_alpha_daily' for the relevant company, ensuring data accuracy and timeliness.",
+                    "task": "Respond to any follow-up questions or provide additional information by interacting with the user using CompanyRAGWorker and StoryMemoryWorker for context from past interactions, ensuring continuity and personalization in the engagement.",
                     "directed": false
                 }
             }
@@ -374,8 +374,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "The most recent stock performance shows an increase of 2.5% today. The key performance indicators to note are...",
-                    "task": "Deliver stock performance updates to the user promptly using 'MessageWorker', highlighting key performance indicators.",
+                    "value": "Please provide the name of the company you are interested in evaluating for stock valuation metrics.",
+                    "task": "Ask the user for the name of the company they are interested in evaluating for stock valuation metrics.",
                     "directed": false
                 }
             }
@@ -384,12 +384,12 @@
             "27",
             {
                 "resource": {
-                    "id": "nested_graph",
-                    "name": "trend_analysis"
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
                 },
                 "attribute": {
-                    "value": "35",
-                    "task": "Check if the user is interested in additional historical trend insights and, if so, use 'trend_analysis' to provide a concise summary with visual aids.",
+                    "value": "",
+                    "task": "Use the CompanyRAGWorker to retrieve and compile relevant financial data from company filings and documents for the specified company.",
                     "directed": false
                 }
             }
@@ -398,12 +398,12 @@
             "28",
             {
                 "resource": {
-                    "id": "nested_graph",
-                    "name": "comparative_analysis"
+                    "id": "9c15af81-04b3-443e-be04-a3522124b905",
+                    "name": "SearchWorker"
                 },
                 "attribute": {
-                    "value": "38",
-                    "task": "Inquire if the user needs a comparative analysis with other companies; if interested, execute 'comparative_analysis' to offer insightful comparisons.",
+                    "value": "",
+                    "task": "Use the SearchWorker to gather recent market data and news related to the company.",
                     "directed": false
                 }
             }
@@ -413,11 +413,11 @@
             {
                 "resource": {
                     "id": "nested_graph",
-                    "name": "investment_recommendation_generation"
+                    "name": "analyze_financial_ratios"
                 },
                 "attribute": {
-                    "value": "42",
-                    "task": "Offer medium-term investment recommendations using 'investment_recommendation_generation' if requested, ensuring suggestions are tailored to user preferences and risk profile.",
+                    "value": "49",
+                    "task": "Utilize the analyze_financial_ratios resource to calculate key financial ratios and metrics for the company, providing insights into its financial health, performance, and value.",
                     "directed": false
                 }
             }
@@ -426,12 +426,12 @@
             "30",
             {
                 "resource": {
-                    "id": "c50dbfab-501f-4c86-9c21-9a0cf579725b",
-                    "name": "StoryMemoryWorker"
+                    "id": "nested_graph",
+                    "name": "compare_company_metrics"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Store key conversation points using 'StoryMemoryWorker' for enhancing future interactions and providing a personalized experience.",
+                    "value": "53",
+                    "task": "Utilize the compare_company_metrics resource to perform a comparative analysis with similar companies to provide context to the insights.",
                     "directed": false
                 }
             }
@@ -444,8 +444,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Let's gather the necessary data for our analysis.",
-                    "task": "Gather necessary data for analysis purposes.",
+                    "value": "Here is a summary of the valuation metrics and insights. Do you need any further information or clarification on any part?",
+                    "task": "Summarize the valuation metrics and insights using MessageWorker and ask if the user needs further information or clarification on any part.",
                     "directed": false
                 }
             }
@@ -454,12 +454,12 @@
             "32",
             {
                 "resource": {
-                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
-                    "name": "CompanyRAGWorker"
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Retrieve financial statements from designated sources.",
+                    "value": "Would you like to analyze another company or perform additional tasks such as risk assessment or market trend analysis?",
+                    "task": "Inquire if the user would like to analyze another company or perform additional tasks like risk assessment or market trend analysis.",
                     "directed": false
                 }
             }
@@ -468,12 +468,12 @@
             "33",
             {
                 "resource": {
-                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Collect recent market data.",
+                    "task": "Retrieve recent financial data and news about the companies of interest using the CompanyRAGWorker, NewsEventWorker, and market_data-alpha_vantage-get_alpha_daily.",
                     "directed": false
                 }
             }
@@ -482,12 +482,12 @@
             "34",
             {
                 "resource": {
-                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
-                    "name": "CompanyRAGWorker"
+                    "id": "nested_graph",
+                    "name": "analyze_financial_ratios"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Extract relevant information from company filings.",
+                    "value": "49",
+                    "task": "Analyze the financial ratios using the extracted data to evaluate the companies' financial health and performance with analyze_financial_ratios.",
                     "directed": false
                 }
             }
@@ -496,12 +496,12 @@
             "35",
             {
                 "resource": {
-                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                    "id": "nested_graph",
+                    "name": "risk_assessment"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Analyze historical data for trends and patterns.",
+                    "value": "56",
+                    "task": "Evaluate potential investment risks by using risk_assessment to analyze historical data and predict future trends.",
                     "directed": false
                 }
             }
@@ -510,12 +510,12 @@
             "36",
             {
                 "resource": {
-                    "id": "dfbefd00-bd56-4137-8517-b485dc48a714",
-                    "name": "portfolio-risk_metrics-sharpe_ratio"
+                    "id": "nested_graph",
+                    "name": "compare_company_metrics"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Identify key performance metrics over time.",
+                    "value": "53",
+                    "task": "Compare the analyzed financial metrics across selected companies with compare_company_metrics to highlight strengths and weaknesses.",
                     "directed": false
                 }
             }
@@ -524,12 +524,12 @@
             "37",
             {
                 "resource": {
-                    "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
-                    "name": "market_data-fred-get_fred_series"
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Assess market indicators for trend evaluation.",
+                    "value": "Here is the risk assessment summary highlighting the key findings and risk factors for your selected companies.",
+                    "task": "Deliver the risk assessment summary to the user using MessageWorker, highlighting key findings and risk factors.",
                     "directed": false
                 }
             }
@@ -538,12 +538,12 @@
             "38",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "nested_graph",
+                    "name": "formulate_investment_recommendations"
                 },
                 "attribute": {
-                    "value": "Let's start with a side-by-side comparison of the companies you are interested in.",
-                    "task": "Conduct a side-by-side comparison of companies.",
+                    "value": "59",
+                    "task": "Recommend next steps or investment actions, based on the risk assessment and future trend predictions, using formulate_investment_recommendations.",
                     "directed": false
                 }
             }
@@ -552,12 +552,12 @@
             "39",
             {
                 "resource": {
-                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
-                    "name": "MessageWorker"
+                    "id": "1a2b3c4d-1111-2222-3333-444455556666",
+                    "name": "NewsEventWorker"
                 },
                 "attribute": {
-                    "value": "What criteria would you like to use for comparing these companies? For example, revenue, earnings, etc.",
-                    "task": "Identify criteria for comparison (e.g., revenue, earnings).",
+                    "value": "Here are the latest market news and data that align with your investment interests.",
+                    "task": "Retrieve real-time market data and news for the user by using the NewsEventWorker and market_data-alpha_vantage-get_alpha_daily, ensuring the information is tailored to the user's investment interests.",
                     "directed": false
                 }
             }
@@ -570,8 +570,8 @@
                     "name": "CompanyRAGWorker"
                 },
                 "attribute": {
-                    "value": "I am aggregating the necessary data for each company based on the criteria you've selected.",
-                    "task": "Aggregate data for each company based on selected criteria.",
+                    "value": "We've compiled the latest financial data for the sectors you're interested in. Sentiment analysis indicates positive/negative trends.",
+                    "task": "Gather relevant financial data from company filings using CompanyRAGWorker and perform sentiment analysis on recent market news using market_data-sentiment-simple_sentiment, focusing on sectors or companies the user is interested in.",
                     "directed": false
                 }
             }
@@ -580,12 +580,12 @@
             "41",
             {
                 "resource": {
-                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
-                    "name": "CompanyRAGWorker"
+                    "id": "nested_graph",
+                    "name": "analyze_financial_ratios"
                 },
                 "attribute": {
-                    "value": "Now, let's evaluate the differences and similarities in the performance of these companies based on the aggregated data.",
-                    "task": "Evaluate differences and similarities in performance.",
+                    "value": "49",
+                    "task": "Analyze financial ratios and compare company metrics using analyze_financial_ratios and compare_company_metrics to assess the financial health and performance of potential investment targets, prioritizing those that meet the user's investment criteria.",
                     "directed": false
                 }
             }
@@ -594,12 +594,12 @@
             "42",
             {
                 "resource": {
-                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                    "id": "nested_graph",
+                    "name": "identify_market_trends"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Formulate investment recommendations from data analysis.",
+                    "value": "62",
+                    "task": "Identify current market trends using identify_market_trends and evaluate potential risks using risk_assessment and portfolio-risk_metrics for value-at-risk (VaR), max drawdown, and Sharpe ratio, aligning assessments with the user's risk tolerance and investment goals.",
                     "directed": false
                 }
             }
@@ -608,12 +608,12 @@
             "43",
             {
                 "resource": {
-                    "id": "4528c48c-6507-413f-b63a-63a500699df5",
-                    "name": "portfolio-risk_metrics-max_drawdown"
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Evaluate long-term potential based on trends and comparisons.",
+                    "value": "Based on the analysis, here are personalized investment recommendations that align with your strategy.",
+                    "task": "Formulate and deliver personalized investment recommendations based on the financial analysis, market trends, and risk assessments using MessageWorker, emphasizing opportunities that align with the user's investment strategy.",
                     "directed": false
                 }
             }
@@ -622,12 +622,12 @@
             "44",
             {
                 "resource": {
-                    "id": "25735056-f758-4d4d-9b9c-c067ec96e059",
-                    "name": "portfolio-risk_metrics-value_at_risk"
+                    "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
+                    "name": "PortfolioWorker"
                 },
                 "attribute": {
-                    "value": "",
-                    "task": "Consider user-defined investment criteria (e.g., risk tolerance).",
+                    "value": "Would you like to log your decisions or continue tracking your investments?",
+                    "task": "Ask the user if they would like to log their decisions or continue tracking with PortfolioWorker, supporting their decision-making process with accurate recording and monitoring.",
                     "directed": false
                 }
             }
@@ -640,8 +640,8 @@
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Based on your preferences and our analysis, here are some tailored investment suggestions for you.",
-                    "task": "Present tailored investment suggestions.",
+                    "value": "Do you need any further assistance or insights on your investments or market conditions?",
+                    "task": "Offer assistance with any additional queries or deeper insights they might want about specific investments or market conditions, ensuring they have access to comprehensive information as needed.",
                     "directed": false
                 }
             }
@@ -650,12 +650,12 @@
             "46",
             {
                 "resource": {
-                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Monitor ongoing stock performance and market conditions.",
+                    "task": "Identify and retrieve financial data from filings and market sources.",
                     "directed": false
                 }
             }
@@ -664,12 +664,12 @@
             "47",
             {
                 "resource": {
-                    "id": "9c15af81-04b3-443e-be04-a3522124b905",
-                    "name": "SearchWorker"
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
                 },
                 "attribute": {
                     "value": "",
-                    "task": "Set up alerts for significant market events.",
+                    "task": "Access company filings to extract balance sheet, income statement, and cash flow data.",
                     "directed": false
                 }
             }
@@ -678,12 +678,236 @@
             "48",
             {
                 "resource": {
+                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
+                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Retrieve market data such as stock prices, volume, and changes.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "49",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Compute financial ratios to assess company health.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "50",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "The current ratio is 1.5 and the quick ratio is 1.2, indicating adequate liquidity.",
+                    "task": "Calculate liquidity ratios like the current ratio and quick ratio.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "51",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "The net profit margin is 10% and the return on equity is 15%, reflecting strong profitability.",
+                    "task": "Calculate profitability ratios like the net profit margin and return on equity.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "52",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "The price-to-earnings ratio is 20 and the price-to-book ratio is 3.5, providing insight into valuation.",
+                    "task": "Calculate valuation ratios like the price-to-earnings ratio and price-to-book ratio.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "53",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "I have gathered the performance metrics from the latest company filings for comparison.",
+                    "task": "Gather and compare key performance metrics across companies.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "54",
+            {
+                "resource": {
                     "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
                     "name": "MessageWorker"
                 },
                 "attribute": {
-                    "value": "Here are the latest updates on your portfolio stocks and relevant market news.",
-                    "task": "Regularly update users with current stock prices and relevant news.",
+                    "value": "Which companies would you like to compare? Please provide the names.",
+                    "task": "Select companies for comparison based on user input.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "55",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "Here are the compiled performance metrics: Revenue growth, EPS, and market capitalization.",
+                    "task": "Compile performance metrics such as revenue growth, earnings per share, and market capitalization.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "56",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "Let's identify the risk factors associated with your potential investment.",
+                    "task": "Determine the risk factors affecting a potential investment.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "57",
+            {
+                "resource": {
+                    "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
+                    "name": "market_data-alpha_vantage-get_alpha_daily"
+                },
+                "attribute": {
+                    "value": "I will fetch the historical volatility and beta for the company from Alpha Vantage to analyze the stock.",
+                    "task": "Analyze historical volatility and beta of the company's stock.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "58",
+            {
+                "resource": {
+                    "id": "1a2b3c4d-1111-2222-3333-444455556666",
+                    "name": "NewsEventWorker"
+                },
+                "attribute": {
+                    "value": "Let's look at the recent news and economic trends to evaluate potential industry and economic risks.",
+                    "task": "Evaluate industry and economic risks potentially affecting investment viability.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "59",
+            {
+                "resource": {
+                    "id": "26bb6634-3bee-417d-ad75-23269ac17bc3",
+                    "name": "MessageWorker"
+                },
+                "attribute": {
+                    "value": "Based on your preferences, here's some tailored investment advice.",
+                    "task": "Provide investment advice tailored to the user's preferences and analysis results.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "60",
+            {
+                "resource": {
+                    "id": "fb119d03-2a6d-4ab7-a42c-2b73c1b4bfc2",
+                    "name": "CompanyRAGWorker"
+                },
+                "attribute": {
+                    "value": "After analyzing the financial data and assessing the risks, we found the following key points...",
+                    "task": "Summarize findings from financial analysis and risk assessment.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "61",
+            {
+                "resource": {
+                    "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
+                    "name": "PortfolioWorker"
+                },
+                "attribute": {
+                    "value": "Considering the comprehensive analysis, we recommend the following strategies: Buy this asset, hold that asset, and consider selling these.",
+                    "task": "Recommend buy, hold, or sell strategies based on comprehensive analysis.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "62",
+            {
+                "resource": {
+                    "id": "9c15af81-04b3-443e-be04-a3522124b905",
+                    "name": "SearchWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Assess market conditions and trends that may impact investment decisions.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "63",
+            {
+                "resource": {
+                    "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
+                    "name": "market_data-fred-get_fred_series"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Analyze macroeconomic indicators such as interest rates and GDP growth.",
+                    "directed": false
+                }
+            }
+        ],
+        [
+            "64",
+            {
+                "resource": {
+                    "id": "1a2b3c4d-1111-2222-3333-444455556666",
+                    "name": "NewsEventWorker"
+                },
+                "attribute": {
+                    "value": "",
+                    "task": "Scan news and reports for market sentiment and changes.",
                     "directed": false
                 }
             }
@@ -694,7 +918,7 @@
             "0",
             "1",
             {
-                "intent": "User needs analysis of company financial statements",
+                "intent": "User wants company financial analysis",
                 "attribute": {
                     "weight": 1,
                     "pred": true,
@@ -756,65 +980,65 @@
             }
         ],
         [
-            "0",
+            "5",
             "6",
             {
-                "intent": "User wants to evaluate market trends",
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "6",
+            "7",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "7",
+            "8",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "8",
+            "9",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "10",
+            {
+                "intent": "User wants to compare company performance metrics",
                 "attribute": {
                     "weight": 1,
                     "pred": true,
-                    "definition": "",
-                    "sample_utterances": []
-                }
-            }
-        ],
-        [
-            "6",
-            "7",
-            {
-                "intent": "None",
-                "attribute": {
-                    "weight": 1,
-                    "pred": false,
-                    "definition": "",
-                    "sample_utterances": []
-                }
-            }
-        ],
-        [
-            "7",
-            "8",
-            {
-                "intent": "None",
-                "attribute": {
-                    "weight": 1,
-                    "pred": false,
-                    "definition": "",
-                    "sample_utterances": []
-                }
-            }
-        ],
-        [
-            "8",
-            "9",
-            {
-                "intent": "None",
-                "attribute": {
-                    "weight": 1,
-                    "pred": false,
-                    "definition": "",
-                    "sample_utterances": []
-                }
-            }
-        ],
-        [
-            "9",
-            "10",
-            {
-                "intent": "None",
-                "attribute": {
-                    "weight": 1,
-                    "pred": false,
                     "definition": "",
                     "sample_utterances": []
                 }
@@ -834,13 +1058,13 @@
             }
         ],
         [
-            "0",
+            "11",
             "12",
             {
-                "intent": "User seeks comparison between companies",
+                "intent": "None",
                 "attribute": {
                     "weight": 1,
-                    "pred": true,
+                    "pred": false,
                     "definition": "",
                     "sample_utterances": []
                 }
@@ -899,39 +1123,39 @@
             }
         ],
         [
-            "0",
+            "16",
             "17",
             {
-                "intent": "User requests investment recommendations",
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "17",
+            "18",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "0",
+            "19",
+            {
+                "intent": "User wants to track market trends",
                 "attribute": {
                     "weight": 1,
                     "pred": true,
-                    "definition": "",
-                    "sample_utterances": []
-                }
-            }
-        ],
-        [
-            "17",
-            "18",
-            {
-                "intent": "None",
-                "attribute": {
-                    "weight": 1,
-                    "pred": false,
-                    "definition": "",
-                    "sample_utterances": []
-                }
-            }
-        ],
-        [
-            "18",
-            "19",
-            {
-                "intent": "None",
-                "attribute": {
-                    "weight": 1,
-                    "pred": false,
                     "definition": "",
                     "sample_utterances": []
                 }
@@ -1003,26 +1227,26 @@
             }
         ],
         [
-            "0",
+            "24",
             "25",
             {
-                "intent": "User wants updates on stock performance",
+                "intent": "None",
                 "attribute": {
                     "weight": 1,
-                    "pred": true,
+                    "pred": false,
                     "definition": "",
                     "sample_utterances": []
                 }
             }
         ],
         [
-            "25",
+            "0",
             "26",
             {
-                "intent": "None",
+                "intent": "User wants stock valuation metrics",
                 "attribute": {
                     "weight": 1,
-                    "pred": false,
+                    "pred": true,
                     "definition": "",
                     "sample_utterances": []
                 }
@@ -1081,6 +1305,19 @@
             }
         ],
         [
+            "30",
+            "31",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
             "31",
             "32",
             {
@@ -1094,8 +1331,21 @@
             }
         ],
         [
-            "31",
+            "0",
             "33",
+            {
+                "intent": "User wants to assess investment risks",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "33",
+            "34",
             {
                 "intent": "None",
                 "attribute": {
@@ -1107,8 +1357,8 @@
             }
         ],
         [
-            "31",
             "34",
+            "35",
             {
                 "intent": "None",
                 "attribute": {
@@ -1133,7 +1383,7 @@
             }
         ],
         [
-            "35",
+            "36",
             "37",
             {
                 "intent": "None",
@@ -1146,8 +1396,8 @@
             }
         ],
         [
+            "37",
             "38",
-            "39",
             {
                 "intent": "None",
                 "attribute": {
@@ -1159,7 +1409,20 @@
             }
         ],
         [
-            "38",
+            "0",
+            "39",
+            {
+                "intent": "User wants investment insights and recommendations",
+                "attribute": {
+                    "weight": 1,
+                    "pred": true,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "39",
             "40",
             {
                 "intent": "None",
@@ -1172,8 +1435,21 @@
             }
         ],
         [
-            "38",
+            "40",
             "41",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "41",
+            "42",
             {
                 "intent": "None",
                 "attribute": {
@@ -1198,7 +1474,7 @@
             }
         ],
         [
-            "42",
+            "43",
             "44",
             {
                 "intent": "None",
@@ -1211,7 +1487,7 @@
             }
         ],
         [
-            "42",
+            "44",
             "45",
             {
                 "intent": "None",
@@ -1239,6 +1515,149 @@
         [
             "46",
             "48",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "49",
+            "50",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "49",
+            "51",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "49",
+            "52",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "53",
+            "54",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "53",
+            "55",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "56",
+            "57",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "56",
+            "58",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "59",
+            "60",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "59",
+            "61",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "62",
+            "63",
+            {
+                "intent": "None",
+                "attribute": {
+                    "weight": 1,
+                    "pred": false,
+                    "definition": "",
+                    "sample_utterances": []
+                }
+            }
+        ],
+        [
+            "62",
+            "64",
             {
                 "intent": "None",
                 "attribute": {
@@ -1323,6 +1742,19 @@
             "id": "e20d4428-6e92-425e-a6e0-849171dcf21e",
             "name": "PortfolioWorker",
             "path": "portfolio_worker.py"
+        },
+        {
+            "id": "1a2b3c4d-1111-2222-3333-444455556666",
+            "name": "NewsEventWorker",
+            "path": "news_event_worker.py",
+            "fixed_args": {
+                "feeds": [
+                    "https://feeds.marketwatch.com/marketwatch/topstories/",
+                    "https://feeds.finance.yahoo.com/rss/2.0/headline?s=yhoo&region=US&lang=en-US",
+                    "https://rss.cnn.com/rss/money_latest.rss",
+                    "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+                ]
+            }
         }
     ],
     "tools": [
@@ -1350,6 +1782,16 @@
             "id": "dfbefd00-bd56-4137-8517-b485dc48a714",
             "name": "sharpe_ratio",
             "path": "portfolio/risk_metrics.py"
+        },
+        {
+            "id": "bbbbcccc-dddd-eeee-ffff-000011112222",
+            "name": "simple_sentiment",
+            "path": "market_data/sentiment.py"
+        },
+        {
+            "id": "ccccdddd-eeee-ffff-0000-111122223333",
+            "name": "apply_pct_change",
+            "path": "market_data/scenario.py"
         }
     ],
     "nluapi": "",
