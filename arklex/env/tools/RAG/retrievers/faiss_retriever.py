@@ -118,7 +118,7 @@ class FaissRetrieverExecutor:
         database_path: str, llm_config: LLMConfig, index_path: str = "./index"
     ) -> "FaissRetrieverExecutor":
         document_path: str = os.path.join(database_path, "chunked_documents.pkl")
-        index_path: str = os.path.join(database_path, "index")
+        idx_path: str = os.path.join(database_path, index_path)
         # logger.info(f"Loaded documents from {document_path}")
         # with open(document_path, "rb") as fread:
         #     documents: List[Document] = pickle.load(fread)
@@ -127,17 +127,17 @@ class FaissRetrieverExecutor:
         index: Optional[FAISS] = None
         documents: List[Document] = []
 
-        if os.path.isdir(index_path):
+        if os.path.isdir(idx_path):
             try:
                 index = FAISS.load_local(
-                    index_path,
+                    idx_path,
                     PROVIDER_EMBEDDINGS.get(
                         llm_config.llm_provider, OpenAIEmbeddings
                     )(),
                     allow_dangerous_deserialization=True,
                 )
                 documents = list(index.docstore._dict.values())
-                logger.info(f"Loaded FAISS index from {index_path}")
+                logger.info(f"Loaded FAISS index from {idx_path}")
             except Exception as err:
                 logger.error(f"Failed to load index: {err}")
                 index = None
@@ -147,6 +147,12 @@ class FaissRetrieverExecutor:
             with open(document_path, "rb") as fread:
                 documents = pickle.load(fread)
             logger.info(f"Loaded {len(documents)} documents")
+            index = FAISS.from_documents(
+                documents,
+                PROVIDER_EMBEDDINGS.get(llm_config.llm_provider, OpenAIEmbeddings)(),
+            )
+            os.makedirs(idx_path, exist_ok=True)
+            index.save_local(idx_path)
 
         return FaissRetrieverExecutor(
             # texts=documents, index_path=index_path, llm_config=llm_config
