@@ -1,60 +1,64 @@
 [
     {
-        "task_name": "Provide analysis of company's financial statements",
+        "task_name": "Explain company financial statements and key metrics",
         "steps": [
-            "Use the MessageWorker to inquire which company's financial statements the user wants to analyze.",
-            "Retrieve the company's financial data and relevant market information using the retrieve_company_data resource.",
-            "Use the CompanyRAGWorker to analyze the company's financial statements, focusing on key metrics like revenue, expenses, and profitability.",
-            "Utilize the MessageWorker to present the analysis to the user, highlighting critical financial health indicators.",
-            "Ask the user if they need further information or insights on market trends or comparative analysis with other companies using the MessageWorker.",
-            "If the user requests further analysis, use the appropriate resources (e.g., compare_financial_metrics, market_trends_insights) to provide additional insights.",
-            "Confirm if the user needs to store any notes or add this analysis to their portfolio for future reference using the PortfolioWorker."
+            "Use the CompanyRAGWorker to explain the company's financial statements and key metrics to the user.",
+            "Encourage the user to ask any specific questions they have regarding these statements or metrics.",
+            "If the user asks about real-time knowledge or recent news events regarding the company, utilize the SearchWorker and NewsEventWorker to provide accurate and up-to-date information.",
+            "Offer to analyze the financial data further using specialized tasks like extract_and_interpret_financial_data or market_trend_analysis if the user requests deeper insights.",
+            "Conclude by summarizing important findings or insights and asking if the user needs further assistance or additional explanations."
         ]
     },
     {
-        "task_name": "Provide insights on current market trends",
+        "task_name": "Provide analysis of company performance and earnings",
         "steps": [
-            "Use MessageWorker to greet the user and ask how they would like to gain insights into current market trends.",
-            "Employ NewsEventWorker to gather recent market-related news or events and present them to the user for context.",
-            "Invoke SearchWorker to conduct a real-time search of online resources for the latest market trends and insights, and share the findings with the user.",
-            "Leverage market_data-alpha_vantage-get_alpha_daily to retrieve daily market data for relevant stocks or indices to provide a quantitative perspective on market trends.",
-            "Utilize market_data-sentiment-simple_sentiment to perform sentiment analysis on the gathered news articles or market communications to offer further insights into market sentiment.",
-            "Apply market_trends_insights to analyze and interpret the identified market trends, providing holistic insights into potential impacts on investments.",
-            "Ask the user if they need further clarification or additional insights, and provide a summary of the key findings from the market trends analysis.",
-            "Confirm with the user if they would like to explore investment opportunities based on the insights or need assistance with any specific stock or sector analysis."
+            "Identify user's interest in a specific company or sector for medium-term stock investment.",
+            "Gather financial and market data using CompanyRAGWorker and market data sources.",
+            "Perform financial analysis using extracted financial data and risk metrics.",
+            "Analyze market trends with market trend analysis tools and SearchWorker.",
+            "Provide insights and analysis on the company's performance and earnings through MessageWorker.",
+            "Evaluate external factors such as news events and perform sentiment analysis if needed.",
+            "Generate investment hypotheses based on the analysis.",
+            "Record insights or recommendations with PortfolioWorker and confirm user's need for further updates or analysis."
         ]
     },
     {
-        "task_name": "Provide comparison of financial metrics of selected companies",
+        "task_name": "Analyze and report on current market conditions and trends",
         "steps": [
-            "Interact with the user to identify the companies they want to compare and the specific financial metrics they are interested in.",
-            "Retrieve necessary financial data for the selected companies using the 'retrieve_company_data' subtask.",
-            "Utilize the 'compare_financial_metrics' to analyze the financial metrics of the selected companies.",
-            "Present the comparative analysis to the user using the 'MessageWorker', highlighting key differences and insights.",
-            "Ask if the user needs further information or insights, such as industry performance or market trends, to contextualize the comparison."
+            "Use the SearchWorker to gather real-time market data and news relevant to current market conditions and trends. Also, utilize the NewsEventWorker to monitor news feeds for recent articles that can provide context for analysis.",
+            "Fetch daily time series data from Alpha Vantage using market_data-alpha_vantage-get_alpha_daily and FRED economic time series using market_data-fred-get_fred_series for deeper market insights.",
+            "Analyze the collected data using market_trend_analysis to identify current market trends and conditions.",
+            "Use market_data-sentiment-simple_sentiment to perform sentiment analysis on the gathered news and data to understand market sentiment.",
+            "Interpret all gathered insights using the CompanyRAGWorker and StoryMemoryWorker and combine the findings with relevant insights from company documents and filings.",
+            "Communicate the synthesized insights to the user using the MessageWorker, including any notable trends, news impacts, and market sentiments, to aid in their investment decisions."
         ]
     },
     {
-        "task_name": "Provide analysis of industry performance",
+        "task_name": "Generate investment ideas based on fundamental analysis",
         "steps": [
-            "Utilize the SearchWorker to gather up-to-date performance data and trends for the specified industry sector.",
-            "Use the FaissRAGWorker to retrieve and summarize insights from the company's internal documentation related to industry performance.",
-            "Invoke the NewsEventWorker to scan for recent news articles that might impact the industry's performance.",
-            "Apply the industry_performance_analysis subtask to compile and interpret the data collected, focusing on key performance indicators and trends within the industry.",
-            "Deliver a summary of the industry performance analysis to the user through the MessageWorker, providing clear insights and potential implications for medium-term stock investments.",
-            "Ask if the user requires further industry-specific details or has any additional queries regarding investment decisions."
+            "Ask the user for any specific sectors or companies they are interested in for investment ideas.",
+            "Use CompanyRAGWorker to gather and analyze company filings and documents for the specified companies.",
+            "Utilize market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to fetch relevant market and economic data.",
+            "Integrate market trend analysis using market_trend_analysis for a comprehensive understanding of current trends affecting the sector or companies of interest.",
+            "Perform a sentiment analysis using market_data-sentiment-simple_sentiment on recent news articles provided by NewsEventWorker to gauge market sentiment.",
+            "Extract and interpret key financial data from company statements to assess the financial health using extract_and_interpret_financial_data.",
+            "Generate investment hypotheses based on the collected fundamental data insights and market analysis using generate_investment_hypotheses.",
+            "Present the investment ideas to the user, providing the reasoning and data analysis behind each suggestion.",
+            "Ask if the user would like to explore detailed analyses or has further questions about the investment ideas.",
+            "Offer to add chosen investment ideas to their portfolio using PortfolioWorker if the user expresses interest."
         ]
     },
     {
-        "task_name": "Provide assessment of investment risk factors",
+        "task_name": "Assist with monitoring and evaluating portfolio performance",
         "steps": [
-            "Use retrieve_company_data to gather financial statements, stock prices, and market data related to the company of interest.",
-            "Use CompanyRAGWorker to analyze company filings and documents, focusing on identifying any significant disclosures related to risks.",
-            "Apply assess_investment_risks to identify and evaluate various risk factors, such as financial performance, market volatility, and external threats.",
-            "Utilize NewsEventWorker to check for recent news that might present risk factors or influence the company's stock performance.",
-            "Communicate the identified risk factors to the user using MessageWorker, ensuring clarity in the explanation.",
-            "Ask the user if they need further analysis on certain risk factors or additional information via MessageWorker.",
-            "If requested, delve deeper using analyze_financial_statements for more granular insights or compare_financial_metrics for peer comparison."
+            "Retrieve and display the current portfolio positions, trades, and investment notes to the user using the PortfolioWorker.",
+            "Extract key metrics (e.g., returns, market data) from portfolio data using the `extract_and_interpret_financial_data` task to understand the financial health of the portfolio.",
+            "Compute risk metrics like Value at Risk (VaR), max drawdown, and Sharpe ratio using `portfolio-risk_metrics-value_at_risk`, `portfolio-risk_metrics-max_drawdown`, and `portfolio-risk_metrics-sharpe_ratio`, and explain their significance to the user.",
+            "Analyze market trends using `market_trend_analysis` and provide insights on how current market conditions may affect the portfolio.",
+            "Monitor recent financial news and provide context for analysis using NewsEventWorker to ensure users have updated information impacting their investments.",
+            "Evaluate the overall performance of the portfolio using `portfolio_performance_monitoring` and suggest any potential adjustments or rebalancing strategies.",
+            "Generate and offer investment hypotheses or ideas for the user to consider based on financial and market data with `generate_investment_hypotheses`.",
+            "Ask the user if they need further assistance or have any additional questions, offering to provide deeper insights or explore specific investments."
         ]
     }
 ]
