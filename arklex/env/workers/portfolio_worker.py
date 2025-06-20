@@ -88,7 +88,7 @@ class PortfolioWorker(BaseWorker):
         return workflow
 
 
-    def _execute(self, msg_state: MessageState) -> MessageState:
+    def _execute(self, msg_state: MessageState, **kwargs) -> MessageState:
         if hasattr(self.PFActions, "init_slots"):
             msg_state.slots = self.PFActions.init_slots(msg_state.slots, msg_state.bot_config)
         graph = self.action_graph.compile()
