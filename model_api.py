@@ -4,6 +4,8 @@ import os
 import uvicorn
 from typing import Any, Dict, List, Tuple
 
+from dotenv import load_dotenv
+
 from fastapi import FastAPI
 
 from arklex.utils.utils import init_logger
@@ -12,6 +14,7 @@ from arklex.orchestrator.orchestrator import AgentOrg
 from arklex.utils.model_config import MODEL
 from arklex.utils.model_provider_config import LLM_PROVIDERS
 
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 app = FastAPI()
