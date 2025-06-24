@@ -89,9 +89,9 @@
   ],
   "tools": [
     {
-      "id": "9c87d3c7-bc6b-4804-b70d-b5b5957936b0",
-      "name": "get_alpha_daily",
-      "path": "market_data/alpha_vantage.py"
+      "id": "11223344-5566-7788-99aa-bbccddeeff00",
+      "name": "get_yahoo_history",
+      "path": "market_data/yahoo_finance.py"
     },
     {
       "id": "ca3ff9ce-d13f-4959-b47b-a50535208a0e",
