@@ -2,69 +2,51 @@
     {
         "task_name": "Provide analysis of company financial statements",
         "steps": [
-            "Greet the user and inquire about the specific company or companies they are interested in analyzing.",
-            "Use the CompanyRAGWorker to fetch relevant financial filings and documents for the specified companies.",
-            "Perform financial_statement_analysis to understand the company's financial health and performance trends.",
-            "Compile the findings and prepare a summary of key financial metrics and trends using the MessageWorker to communicate with the user.",
-            "Ask the user if they wish to compare the analysis with other companies or if they need a detailed breakdown of any specific financial metric.",
-            "If the user wants a comparison, utilize comparative_company_analysis to provide a comparative overview and highlight differences.",
-            "Provide insights into the market trends or risks associated with the company using market_trend_analysis and risk_assessment.",
-            "Offer stock_valuation insights to assess whether the stock is undervalued or overvalued.",
-            "Conclude by summarizing the findings, offering any necessary clarifications, and asking the user if they require further assistance or have additional questions."
+            "Inquire about the specific company or industries the user is interested in analyzing.",
+            "Utilize the CompanyRAGWorker to retrieve relevant financial statements and filings for the specified company. Ensure the data is then normalized and preprocessed for analysis.",
+            "Perform financial analysis on the retrieved data using financial_analysis_execution to derive key insights such as ratios and trends.",
+            "Utilize the NewsEventWorker and SearchWorker to provide recent news articles and real-time search results that may impact the financial performance of the company.",
+            "Present a summary report to the user, highlighting key financial metrics, analysis insights, and any pertinent news or market trends.",
+            "Ask if the user needs further analysis on another company, requests additional details or insights, or if they have further questions."
         ]
     },
     {
-        "task_name": "Provide analysis of market trends",
+        "task_name": "Provide insights on current market trends",
         "steps": [
-            "Initiate the conversation by asking the user if they are interested in analyzing current market trends or specific sectors.",
-            "Use the NewsEventWorker to provide recent articles and news snippets relevant to the user's interest as context for market trend analysis.",
-            "Leverage the market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to fetch recent market data series based on the user's interest.",
-            "Perform market_trend_analysis using the data collected; provide insights on recent trends, potential growth areas, or downturns based on the analysis.",
-            "Ask the user if they need further analysis on a specific company or sector, or if they want additional insights on market conditions.",
-            "If requested, use the CompanyRAGWorker to dive deeper into specific company filings or documents to provide detailed analysis on financial health and performance trends.",
-            "Summarize the findings for the user and ask if they need assistance with any investment strategies or wish to record any notes in their portfolio using the PortfolioWorker."
+            "Use the NewsEventWorker to gather recent news articles and events related to the market.",
+            "Utilize the SearchWorker to perform real-time searches for trending market analysis and opinions.",
+            "Apply market_data-fred-get_fred_series to collect relevant economic time series data from FRED.",
+            "Execute data_normalization_and_preprocessing to clean and format the collected data for analysis.",
+            "Perform market_trend_identification by analyzing the gathered data and identifying prevailing market trends.",
+            "Use the MessageWorker to deliver insights and findings on market trends to the user.",
+            "Ask the user if they need further analysis or insights on specific sectors or companies.",
+            "Provide additional information using CompanyRAGWorker or Market Sentiment Analysis if requested by the user."
         ]
     },
     {
-        "task_name": "Offer comparative analysis of companies",
+        "task_name": "Provide sector-based company comparison",
         "steps": [
-            "Initiate the conversation by asking the user about the specific companies they are interested in comparing or the criteria they use for comparison.",
-            "Retrieve data from company filings and documents using CompanyRAGWorker to gather detailed financial and market information about the specified companies.",
-            "Fetch the latest market trends and economic data using market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series to incorporate external market conditions into the analysis.",
-            "Perform a comparative analysis using comparative_company_analysis to yield insights into the strengths and weaknesses of the companies based on their financial performance and market position.",
-            "Integrate relevant news and events by leveraging NewsEventWorker to capture any recent developments that could impact the companies' performance.",
-            "Present the comparative analysis results to the user, highlighting key differences, potential investment opportunities, and any risks identified during risk_assessment.",
-            "Ask the user if they need additional analysis or have specific questions regarding the comparative analysis provided.",
-            "If the user decides to proceed with investment, use PortfolioWorker to assist in recording trades, managing investment notes, or evaluating portfolio positions."
+            "Inquire about the specific sector the user is interested in for company comparison.",
+            "Use CompanyRAGWorker to gather data from company filings and documents relevant to the selected sector.",
+            "Utilize data_collection_and_retrieval to ensure comprehensive data gathering on companies within the sector.",
+            "Apply data_normalization_and_preprocessing to clean and prepare the data for analysis.",
+            "Conduct financial_analysis_execution to perform comparative analysis among companies within the sector.",
+            "Leverage NewsEventWorker to include recent news articles that may impact the sector and company performance.",
+            "Use performance_reporting to generate a summary report with actionable insights and recommendations for the user.",
+            "Ask the user if they need further clarification or additional comparisons with other sectors."
         ]
     },
     {
-        "task_name": "Assess investment risk factors",
+        "task_name": "Provide detailed analysis of company performance",
         "steps": [
-            "Initiate the conversation by asking the user about any specific companies or sectors they are interested in analyzing for medium-term stock investments.",
-            "Use the CompanyRAGWorker to gather data from filings and documents related to the specified companies or sectors.",
-            "Utilize the NewsEventWorker to fetch recent news articles and events that may affect the companies or sectors of interest.",
-            "Apply the market_data-alpha_vantage-get_alpha_daily and market_data-fred-get_fred_series resources to collect relevant market data.",
-            "Perform financial_statement_analysis and market_trend_analysis to evaluate the company's financial health and current market trends.",
-            "Conduct a comparative_company_analysis to identify how the target company stands against its competitors.",
-            "Execute risk_assessment to evaluate potential risks associated with the investment.",
-            "Calculate risk metrics using portfolio-risk_metrics-value_at_risk, portfolio-risk_metrics-max_drawdown, and portfolio-risk_metrics-sharpe_ratio to provide insight into investment risk.",
-            "Provide an assessment of the investment risk factors using the MessageWorker to communicate findings to the user, along with any relevant insights from the sentiment analysis.",
-            "Ask the user if they need further analysis, have additional questions, or wish to proceed with a closer look at potential investment actions."
-        ]
-    },
-    {
-        "task_name": "Determine the valuation of specific stocks",
-        "steps": [
-            "Ask the user which specific stock they are interested in for valuation.",
-            "Use the CompanyRAGWorker to gather recent filings and disclosure information for the specified stock.",
-            "Fetch daily market data for the specified stock using market_data-alpha_vantage-get_alpha_daily.",
-            "Analyze the company's financial statements using the financial_statement_analysis resource to evaluate its financial health.",
-            "Perform stock valuation using the stock_valuation resource to assess intrinsic value.",
-            "Utilize market_trend_analysis to evaluate any relevant market trends impacting the stock's performance.",
-            "Communicate the results of the valuation and analysis to the user.",
-            "Ask the user if they need additional analysis, such as a comparative analysis with similar companies or further risk assessment.",
-            "Provide a summary and offer guidance on potential investment decisions based on the valuation analysis."
+            "Initiate a conversation with the user to understand the specific company or sector they are interested in analyzing for medium-term stock investments.",
+            "Use the CompanyRAGWorker to gather detailed filings and documents about the company, and apply data_collection_and_retrieval to ensure comprehensive data acquisition from various sources.",
+            "Perform data_normalization_and_preprocessing to clean and organize the gathered data for analysis.",
+            "Conduct financial_analysis_execution, using stored data to perform ratio, trend, and comparative analysis, to derive insights into the company's performance.",
+            "Deploy the NewsEventWorker to gather recent market news and events related to the company to provide current context for the analysis.",
+            "Utilize market_trend_identification to analyze macroeconomic indicators and sector trends that might impact the investment decision.",
+            "Compile and present a performance_reporting summary that outlines the analysis results, offering actionable insights and recommendations based on the data to the user.",
+            "Ask if the user requires further details or any additional analysis to assist in making informed investment decisions."
         ]
     }
 ]
