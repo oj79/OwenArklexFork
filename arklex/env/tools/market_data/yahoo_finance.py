@@ -19,7 +19,12 @@ async def _fetch_yahoo(symbol: str, period: str, interval: str) -> Any:
     df = await asyncio.to_thread(
         yf.download, tickers=symbol, period=period, interval=interval
     )
-    result = df.reset_index().to_dict(orient="records")
+    df = df.reset_index()
+    df.columns = [
+        "_".join(map(str, col)) if isinstance(col, tuple) else str(col)
+        for col in df.columns
+    ]
+    result = df.to_dict(orient="records")
     _cache[cache_key] = (time.time(), result)
     return result
 
@@ -35,4 +40,4 @@ slots = [
 @register_tool(description, slots)
 def get_yahoo_history(symbol: str, period: str = "5d", interval: str = "1d") -> str:
     data = asyncio.run(_fetch_yahoo(symbol, period, interval))
-    return json.dumps(data)
+    return json.dumps(data, default=str)
